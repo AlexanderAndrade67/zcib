@@ -1,4 +1,4 @@
-﻿// ========= ROTADOR DE FRASES (Hero) =========
+// ========= ROTADOR DE FRASES (Hero) =========
   const HERO_PHRASES = [
     "Venta y arriendo de inmuebles con asesoría experta y resultados reales.",
     "Publicamos su inmueble, filtramos clientes y cerramos más rápido.",
@@ -82,6 +82,7 @@
   const propertyDetailContentEl = document.getElementById('property-detail-content');
   const modalDetalleInmuebleEl = document.getElementById('modalDetalleInmueble');
   const modalDetalleInmuebleTitleEl = document.getElementById('modalDetalleInmuebleLabel');
+  const modalDetalleWhatsappEl = document.getElementById('property-detail-whatsapp-link');
   const inmueblesCacheById = new Map();
   let modalDetalleInmuebleInstance = null;
   let currentWhatsappNumber = THEME_DEFAULTS.whatsappNumber;
@@ -260,6 +261,14 @@
     return `https://wa.me/${waNumber}${suffix}`;
   }
 
+  function buildPropertyWhatsappUrl(inmueble){
+    const code = inmueble?.codigo ? `Código ${inmueble.codigo}` : 'el inmueble publicado';
+    const title = inmueble?.titulo ? ` - ${inmueble.titulo}` : '';
+    const business = inmueble?.tipo_negocio === 'arriendo' ? 'arriendo' : 'venta';
+    const message = `Hola, quiero solicitar información sobre ${code}${title} para ${business}.`;
+    return buildWhatsappUrl(currentWhatsappNumber, message);
+  }
+
   function normalizeOptionalUrl(value){
     const raw = String(value || '').trim();
     if (!raw) return '';
@@ -281,6 +290,11 @@
       link.href = buildWhatsappUrl(whatsappNumber);
       const icon = link.querySelector('i')?.outerHTML || '<i class="fas fa-phone-alt"></i>';
       link.innerHTML = `${icon} ${formatPhoneDisplay(menuPhone)}`;
+    });
+
+    document.querySelectorAll('[data-zci-whatsapp]').forEach((link) => {
+      const message = link.getAttribute('data-whatsapp-message') || '';
+      link.href = buildWhatsappUrl(whatsappNumber, message);
     });
 
     document.querySelectorAll('#cms-footer-line').forEach((line) => {
@@ -467,6 +481,7 @@
     const banosText = Number.isFinite(Number(inmueble.banos)) ? `${inmueble.banos} baños` : 'No especificado';
     const priceText = `${formatCOP(inmueble.precio)}${inmueble.tipo_negocio === 'arriendo' ? ' / mes' : ''}`;
     const descripcion = escapeHtml(inmueble.descripcion || 'Sin descripción adicional.');
+    const whatsappHref = buildPropertyWhatsappUrl(inmueble);
     const carouselId = `property-detail-carousel-${inmuebleId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
 
     const carouselItems = (fotos.length ? fotos : [{ url_publica: FALLBACK_PROPERTY_IMG }]).map((foto, idx) => `
@@ -511,11 +526,17 @@
           <div class="h4 fw-bold mb-3" style="color: var(--brand);">${escapeHtml(priceText)}</div>
           <h6 class="mb-1">Descripción</h6>
           <p class="mb-0 text-muted">${descripcion}</p>
+          <a href="${escapeHtml(whatsappHref)}" class="btn btn-primary mt-3" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-whatsapp me-1"></i>Solicitar información
+          </a>
         </div>
       </div>
     `;
 
     modalDetalleInmuebleTitleEl && (modalDetalleInmuebleTitleEl.textContent = inmueble.titulo || 'Detalle de inmueble');
+    if (modalDetalleWhatsappEl){
+      modalDetalleWhatsappEl.href = whatsappHref;
+    }
     if (!modalDetalleInmuebleInstance){
       modalDetalleInmuebleInstance = bootstrap.Modal.getOrCreateInstance(modalDetalleInmuebleEl);
     }
@@ -524,7 +545,6 @@
 
   async function loadInmueblesFromSupabase(){
     if (!inmueblesListEl || !supabaseClient) return;
-    const contactHref = document.getElementById('contacto') ? '#contacto' : 'contacto.html';
     const hasDetailModal = Boolean(propertyDetailContentEl && modalDetalleInmuebleEl);
 
     const { data, error } = await supabaseClient
@@ -575,6 +595,7 @@
       const totalPhotos = normalizeFotos(inmueble.inmueble_fotos).length || 1;
       const code = escapeHtml(inmueble.codigo || 'Sin código');
       const title = escapeHtml(inmueble.titulo || 'Inmueble');
+      const whatsappHref = buildPropertyWhatsappUrl(inmueble);
 
       return `
         <div class="col-md-6 col-lg-4">
@@ -596,7 +617,7 @@
               <div class="small text-muted mb-2">${totalPhotos} foto(s)</div>
               <div class="property-actions">
                 ${hasDetailModal ? `<button type="button" class="btn-property btn-ghost js-ver-detalle-inmueble" data-inmueble-id="${escapeHtml(inmueble.id)}">Ver detalle completo</button>` : '<a href="inmuebles.html" class="btn-property btn-ghost">Ver detalle completo</a>'}
-                <a href="${contactHref}" class="btn-property">Solicitar Información</a>
+                <a href="${escapeHtml(whatsappHref)}" class="btn-property" target="_blank" rel="noopener noreferrer">Solicitar Información</a>
               </div>
             </div>
           </article>
@@ -2593,4 +2614,6 @@
     const yearEl = document.getElementById('footer-year');
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
   })();
+
+
 
