@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nosotros | ZONA CENTRO INMOBILIARIA</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260505-2" />
+</head>
+<body>
+    <a id="cms-pse-link" href="#" class="pse-float d-none" target="_blank" rel="noopener noreferrer" aria-label="Pagos PSE">
+    <i class="fa-solid fa-credit-card"></i><span>Pagos PSE</span>
+  </a>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html" aria-label="Inicio ZONA CENTRO INMOBILIARIA">
+        <img src="https://lh6.googleusercontent.com/proxy/nrNHC_m0_RziCYvfPgJptLNNArq79MIcN8ioocFEzebfnCZt-jW29kjHgaDfxW5Tz1GvVpGl__fDRxH9ZWIz1X6VQOLKh_lBjogaXQA2NJKuDF2FiKsQJcMm6sAI" alt="Logo ZCI" height="42" loading="lazy">
+        <span id="cms-brand-name">ZONA CENTRO INMOBILIARIA</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="inmuebles.html">Inmuebles</a></li>
+          <li class="nav-item"><a class="nav-link" href="formularios.html">Formularios</a></li>
+          <li class="nav-item"><a class="nav-link active" href="nosotros.html">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main style="padding-top:100px;">
+    <section id="nosotros" class="py-5">
+      <div class="container">
+        <div class="about-heading mx-auto text-center">
+          <span class="about-kicker">Zona Centro Inmobiliaria</span>
+          <h1 class="mb-3">Nosotros</h1>
+          <p class="text-muted mb-0">Conoce la historia, el propósito y los principios que guían nuestro trabajo inmobiliario.</p>
+        </div>
+
+        <div class="row g-4 mt-2 about-grid">
+          <div class="col-md-6 col-xl">
+            <button class="about-card" type="button" data-bs-toggle="modal" data-bs-target="#modalNosotros" data-about-key="historia">
+              <span class="about-icon"><i class="fa-solid fa-landmark"></i></span>
+              <span class="about-title">Nuestra historia</span>
+              <span class="about-text">El origen de una empresa construida con perseverancia, patrimonio y confianza.</span>
+            </button>
+          </div>
+
+          <div class="col-md-6 col-xl">
+            <button class="about-card" type="button" data-bs-toggle="modal" data-bs-target="#modalNosotros" data-about-key="mision">
+              <span class="about-icon"><i class="fa-solid fa-shield-heart"></i></span>
+              <span class="about-title">Misión</span>
+              <span class="about-text">Guardianes confiables del patrimonio de nuestros propietarios y clientes.</span>
+            </button>
+          </div>
+
+          <div class="col-md-6 col-xl">
+            <button class="about-card" type="button" data-bs-toggle="modal" data-bs-target="#modalNosotros" data-about-key="vision">
+              <span class="about-icon"><i class="fa-solid fa-chart-line"></i></span>
+              <span class="about-title">Visión</span>
+              <span class="about-text">Una gestión inmobiliaria líder, moderna y orientada a resultados sostenibles.</span>
+            </button>
+          </div>
+
+          <div class="col-md-6 col-xl">
+            <button class="about-card" type="button" data-bs-toggle="modal" data-bs-target="#modalNosotros" data-about-key="valores">
+              <span class="about-icon"><i class="fa-solid fa-gem"></i></span>
+              <span class="about-title">Valores</span>
+              <span class="about-text">Los principios que definen nuestra forma de actuar y relacionarnos.</span>
+            </button>
+          </div>
+
+          <div class="col-md-6 col-xl">
+            <button class="about-card" type="button" data-bs-toggle="modal" data-bs-target="#modalNosotros" data-about-key="pilares">
+              <span class="about-icon"><i class="fa-solid fa-building-columns"></i></span>
+              <span class="about-title">Pilares</span>
+              <span class="about-text">Excelencia, innovación, aprendizaje y resiliencia para avanzar.</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal fade" id="modalNosotros" tabindex="-1" aria-labelledby="modalNosotrosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content about-modal">
+        <div class="modal-header border-0">
+          <div class="d-flex align-items-center gap-3">
+            <span class="about-modal-icon" id="modalNosotrosIcon"><i class="fa-solid fa-landmark"></i></span>
+            <h5 class="modal-title" id="modalNosotrosLabel">Nosotros</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body pt-0" id="modalNosotrosBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center py-4"><div class="container"><p class="mb-1">&copy; <span id="footer-year"></span> ZONA CENTRO INMOBILIARIA.</p></div></footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>

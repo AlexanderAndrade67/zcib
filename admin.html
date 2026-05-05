@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panel Admin - ZONA CENTRO INMOBILIARIA</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260505-2" />
+  <style>
+    body.admin-ui{ font-size: 17px; }
+    .admin-shell{ max-width: 1500px; }
+    .admin-card .card-body{ padding: 1.6rem; }
+    .admin-card .card-title{ font-size: 1.3rem; }
+    .admin-card .btn{ min-height: 48px; font-weight: 700; }
+    #admin-preview{ height: 620px; border:1px solid rgba(16,42,67,.16); border-radius:12px; background:#fff; }
+    @media (max-width: 992px){ #admin-preview{ height: 460px; } }
+  </style>
+</head>
+<body class="admin-ui">
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html" aria-label="Panel Admin ZCI">
+        <img src="https://lh6.googleusercontent.com/proxy/nrNHC_m0_RziCYvfPgJptLNNArq79MIcN8ioocFEzebfnCZt-jW29kjHgaDfxW5Tz1GvVpGl__fDRxH9ZWIz1X6VQOLKh_lBjogaXQA2NJKuDF2FiKsQJcMm6sAI" alt="Logo ZCI" height="42" loading="lazy">
+        <span>PANEL ADMIN ZCI</span>
+      </a>
+      <span id="admin-session-user" class="text-white small me-2 d-none"></span>
+      <button id="admin-global-logout" type="button" class="btn btn-outline-light btn-sm me-2 d-none">Cerrar sesión</button>
+      <a href="index.html" class="btn btn-danger ms-auto">
+        <i class="fa-solid fa-globe me-1"></i>Ver sitio público
+      </a>
+    </div>
+  </nav>
+
+  <main class="py-5" style="padding-top: 120px !important; padding-bottom: 40px !important;">
+    <div class="container-fluid admin-shell px-3 px-lg-4">
+      <h1 class="text-center mb-2">Administración del sitio</h1>
+      <p class="text-center text-muted mb-4">Gestiona formularios, inmuebles, fotos y estilo visual desde este panel.</p>
+
+      <div id="admin-auth-gate" class="row justify-content-center mb-4">
+        <div class="col-lg-6">
+          <div class="card admin-card">
+            <div class="card-body">
+              <h5 class="card-title mb-3"><i class="fa-solid fa-lock me-2"></i>Iniciar sesión de administración</h5>
+              <div id="admin-auth-status" class="alert alert-secondary py-2 mb-3">Ingresa tus credenciales para habilitar el panel.</div>
+              <form id="admin-access-login-form" class="row g-3" novalidate>
+                <div class="col-md-6">
+                  <label class="form-label" for="admin-access-email">Correo</label>
+                  <input id="admin-access-email" type="email" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="admin-access-password">Contraseña</label>
+                  <input id="admin-access-password" type="password" class="form-control" minlength="6" required>
+                </div>
+                <div class="col-12 text-end">
+                  <button type="submit" class="btn btn-primary">Entrar al panel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="admin-protected-content" class="d-none">
+      <div id="seccion-supabase" class="row g-4">
+        <div class="col-lg-6">
+          <div class="card admin-card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><i class="fa-regular fa-file-lines me-2"></i>Formularios / Publicaciones</h5>
+              <p class="text-muted mb-4">Gestiona formularios y publicaciones. Requiere inicio de sesión.</p>
+              <button class="btn btn-primary mt-auto" type="button" data-bs-toggle="modal" data-bs-target="#modalFormularios">
+                Abrir gestor de formularios
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card admin-card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><i class="fa-solid fa-images me-2"></i>Inmuebles y fotos</h5>
+              <p class="text-muted mb-4">Crea inmuebles y sube fotos al inventario del sitio.</p>
+              <button class="btn btn-primary mt-auto" type="button" data-bs-toggle="modal" data-bs-target="#modalSubirFotosInmueble">
+                Abrir gestor de inmuebles
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card admin-card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fa-solid fa-font me-2"></i>Tipografía del sitio</h5>
+              <p class="text-muted mb-3">Elige tipo de letra para títulos y textos.</p>
+              <div id="font-config-status" class="alert alert-secondary py-2 mb-3">Cargando configuración...</div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label" for="font-heading-select">Fuente de títulos</label>
+                  <select id="font-heading-select" class="form-select">
+                    <option value="playfair">Playfair Display</option>
+                    <option value="manrope">Manrope</option>
+                    <option value="georgia">Georgia</option>
+                    <option value="system">System UI</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label" for="font-body-select">Fuente de contenido</label>
+                  <select id="font-body-select" class="form-select">
+                    <option value="manrope">Manrope</option>
+                    <option value="playfair">Playfair Display</option>
+                    <option value="georgia">Georgia</option>
+                    <option value="system">System UI</option>
+                  </select>
+                </div>
+                <div class="col-12 text-end">
+                  <button id="save-font-config-btn" type="button" class="btn btn-primary">
+                    <i class="fa-solid fa-floppy-disk me-1"></i>Guardar tipografía
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card admin-card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fa-solid fa-palette me-2"></i>Diseño visual</h5>
+              <p class="text-muted mb-3">Cambia colores de contenedores/fondos y la foto principal del encabezado.</p>
+              <div id="theme-config-status" class="alert alert-secondary py-2 mb-3">Cargando configuración visual...</div>
+              <div class="row g-3">
+                <div class="col-md-3">
+                  <label class="form-label" for="theme-bg-color">Fondo principal</label>
+                  <input type="color" id="theme-bg-color" class="form-control form-control-color w-100">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label" for="theme-surface-color">Contenedores</label>
+                  <input type="color" id="theme-surface-color" class="form-control form-control-color w-100">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label" for="theme-brand-color">Color marca</label>
+                  <input type="color" id="theme-brand-color" class="form-control form-control-color w-100">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label" for="theme-accent-color">Color acento</label>
+                  <input type="color" id="theme-accent-color" class="form-control form-control-color w-100">
+                </div>
+                <div class="col-12">
+                  <label class="form-label" for="theme-hero-image">Imagen de portada (Hero)</label>
+                  <input type="url" id="theme-hero-image" class="form-control" placeholder="https://...">
+                </div>
+                <div class="col-md-8">
+                  <label class="form-label" for="theme-hero-file">Subir imagen de portada</label>
+                  <input type="file" id="theme-hero-file" class="form-control" accept="image/*">
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                  <button id="upload-theme-hero-btn" type="button" class="btn btn-outline-primary w-100">
+                    <i class="fa-solid fa-cloud-arrow-up me-1"></i>Subir imagen
+                  </button>
+                </div>
+                <div class="col-12 text-end">
+                  <button id="save-theme-config-btn" type="button" class="btn btn-primary">
+                    <i class="fa-solid fa-floppy-disk me-1"></i>Guardar diseño visual
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card admin-card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fa-solid fa-address-book me-2"></i>Contacto y pagos</h5>
+              <p class="text-muted mb-3">Actualiza WhatsApp, teléfono visible del menú y el enlace del botón flotante de pagos PSE.</p>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label" for="theme-whatsapp-number">Número WhatsApp</label>
+                  <input type="tel" id="theme-whatsapp-number" class="form-control" placeholder="3135715662">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label" for="theme-menu-phone">Teléfono visible en menú</label>
+                  <input type="tel" id="theme-menu-phone" class="form-control" placeholder="3135715662">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label" for="theme-pse-link">Link de pagos PSE</label>
+                  <input type="url" id="theme-pse-link" class="form-control" placeholder="https://...">
+                </div>
+                <div class="col-12">
+                  <button id="save-contact-config-btn" type="button" class="btn btn-primary">
+                    <i class="fa-solid fa-floppy-disk me-1"></i>Guardar contacto y pagos
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="card admin-card">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fa-regular fa-eye me-2"></i>Vista previa del sitio</h5>
+              <iframe id="admin-preview" title="Vista previa sitio" src="index.html" class="w-100"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </main>
+  <div class="modal fade" id="modalFormularios" tabindex="-1" aria-labelledby="modalFormulariosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0" style="border-radius:16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="modalFormulariosLabel">
+            <i class="fa-regular fa-file-lines me-2"></i>Formularios
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <div class="row g-4">
+            <div class="col-12">
+              <div class="alert alert-info mb-0" id="forms-status-alert">Cargando formularios...</div>
+            </div>
+            <div class="col-12">
+              <div class="card h-100 p-3 shadow-sm">
+                <div class="card-body">
+                  <h5 class="mb-2"><i class="fa-regular fa-folder-open me-2"></i>Formularios disponibles</h5>
+                  <ul class="list-group" id="forms-list">
+                    <li class="list-group-item text-muted">No hay formularios cargados.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card h-100 p-3 shadow-sm">
+                <div class="card-body">
+                  <h5 class="mb-2"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir nuevo formulario</h5>
+                  <div id="forms-auth-panel">
+                    <form id="forms-login-form" class="row g-3" novalidate>
+                      <div class="col-md-6">
+                        <label class="form-label" for="forms-email">Correo</label>
+                        <input type="email" class="form-control" id="forms-email" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="forms-password">Contraseña</label>
+                        <input type="password" class="form-control" id="forms-password" minlength="6" required>
+                      </div>
+                      <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div id="forms-upload-panel" class="d-none">
+                    <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+                      <small class="text-muted">Sesión activa: <span id="forms-user-email" class="fw-semibold"></span></small>
+                      <button type="button" class="btn btn-outline-secondary btn-sm" id="forms-logout-btn">Cerrar sesión</button>
+                    </div>
+                    <form id="forms-upload-form" class="row g-3" novalidate>
+                      <div class="col-md-6">
+                        <label class="form-label" for="forms-file-name">Nombre del formulario</label>
+                        <input type="text" class="form-control" id="forms-file-name" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="forms-file-input">Archivo</label>
+                        <input type="file" class="form-control" id="forms-file-input" accept=".pdf,.doc,.docx,.xlsx,.xls,.ppt,.pptx,.txt" required>
+                      </div>
+                      <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-primary">Subir formulario</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalSubirFotosInmueble" tabindex="-1" aria-labelledby="modalSubirFotosInmuebleLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0" style="border-radius:16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="modalSubirFotosInmuebleLabel">
+            <i class="fa-solid fa-images me-2"></i>Inmuebles y fotos
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <div id="supabase-upload-status" class="alert alert-info mb-3" role="alert">Verificando sesión...</div>
+          <div id="supabase-auth-panel">
+            <form id="supabase-login-form" class="row g-3" novalidate>
+              <div class="col-md-6">
+                <label class="form-label" for="supabase-email">Correo</label>
+                <input type="email" class="form-control" id="supabase-email" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="supabase-password">Contraseña</label>
+                <input type="password" class="form-control" id="supabase-password" minlength="6" required>
+              </div>
+              <div class="col-12 text-end">
+                <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+              </div>
+            </form>
+          </div>
+          <div id="supabase-uploader-panel" class="d-none">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+              <small class="text-muted">Sesión activa: <span id="supabase-user-email" class="fw-semibold"></span></small>
+              <button type="button" id="supabase-logout-btn" class="btn btn-outline-secondary btn-sm">Cerrar sesión</button>
+            </div>
+            <div class="d-flex flex-wrap gap-2 mb-2">
+              <button type="button" id="supabase-fill-last-btn" class="btn btn-outline-secondary btn-sm">Autollenar ultimo inmueble</button>
+              <button type="button" id="supabase-suggest-title-btn" class="btn btn-outline-secondary btn-sm">Sugerir titulo</button>
+              <button type="button" id="supabase-new-property-btn" class="btn btn-outline-primary btn-sm">Nuevo inmueble</button>
+            </div>
+            <form id="supabase-upload-form" class="row g-3" novalidate>
+              <input type="hidden" id="supabase-edit-property-id" value="">
+              <div class="col-md-4">
+                <label class="form-label" for="supabase-property-code">Código</label>
+                <input type="text" class="form-control" id="supabase-property-code" required>
+                <small class="text-muted" id="supabase-code-hint">Se asigna automaticamente por consecutivo.</small>
+              </div>
+              <div class="col-md-8">
+                <label class="form-label" for="supabase-property-title">Titulo</label>
+                <input type="text" class="form-control" id="supabase-property-title" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="supabase-property-business">Negocio</label>
+                <select class="form-select" id="supabase-property-business" required>
+                  <option value="" selected disabled>Selecciona...</option>
+                  <option value="arriendo">Arriendo</option>
+                  <option value="venta">Venta</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="supabase-property-type">Tipo inmueble</label>
+                <input type="text" class="form-control" id="supabase-property-type" list="property-type-suggestions" required>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="supabase-property-city">Ciudad</label>
+                <input type="text" class="form-control" id="supabase-property-city" list="property-city-suggestions" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="supabase-property-zone">Zona / barrio</label>
+                <input type="text" class="form-control" id="supabase-property-zone" list="property-zone-suggestions">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label" for="supabase-property-area">Área (m²)</label>
+                <input type="number" step="0.01" min="0" class="form-control" id="supabase-property-area">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label" for="supabase-property-price">Precio</label>
+                <input type="number" step="1" min="0" class="form-control" id="supabase-property-price" required>
+                <small class="text-muted" id="supabase-price-preview">Formato: $0</small>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label" for="supabase-property-bedrooms">Habitaciones</label>
+                <input type="number" min="0" class="form-control" id="supabase-property-bedrooms">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label" for="supabase-property-bathrooms">Baños</label>
+                <input type="number" min="0" class="form-control" id="supabase-property-bathrooms">
+              </div>
+              <div class="col-md-3 d-flex align-items-end">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="supabase-property-active" checked>
+                  <label class="form-check-label" for="supabase-property-active">Mostrar en el sitio</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="supabase-photo-files">Fotos</label>
+                <input type="file" class="form-control" id="supabase-photo-files" accept="image/*" multiple>
+                <small class="text-muted">En edición es opcional. Si agregas fotos, se anexan al inmueble.</small>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="supabase-property-description">Descripción</label>
+                <textarea class="form-control" id="supabase-property-description" rows="2"></textarea>
+              </div>
+              <div class="col-12">
+                <div class="card p-3 shadow-sm">
+                  <h6 class="mb-2"><i class="fa-regular fa-eye me-2"></i>Vista previa en vivo</h6>
+                  <div id="supabase-property-live-preview"></div>
+                </div>
+              </div>
+              <datalist id="property-type-suggestions">
+                <option value="Apartamento"></option><option value="Casa"></option><option value="Local"></option>
+                <option value="Oficina"></option><option value="Bodega"></option><option value="Lote"></option>
+              </datalist>
+              <datalist id="property-city-suggestions">
+                <option value="Medellin"></option><option value="Envigado"></option><option value="Itagui"></option>
+                <option value="Sabaneta"></option><option value="Bello"></option><option value="La Estrella"></option>
+              </datalist>
+              <datalist id="property-zone-suggestions">
+                <option value="Laureles"></option><option value="El Poblado"></option><option value="Centro"></option>
+                <option value="Belen"></option><option value="Robledo"></option><option value="Envigado"></option>
+              </datalist>
+              <div class="col-12 text-end">
+                <button type="submit" class="btn btn-primary" id="supabase-save-property-btn">Guardar inmueble</button>
+              </div>
+              <div class="col-12">
+                <div class="card p-3 shadow-sm">
+                  <h6 class="mb-2"><i class="fa-solid fa-list me-2"></i>Inmuebles registrados</h6>
+                  <div id="supabase-properties-admin-list" class="list-group">
+                    <div class="list-group-item text-muted">Cargando inmuebles...</div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="adminSuccessModal" tabindex="-1" aria-labelledby="adminSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0" style="border-radius:16px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="adminSuccessModalLabel">
+            <i class="fa-solid fa-circle-check text-success me-2"></i>Proceso completado
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <p class="mb-0" id="adminSuccessModalMessage">Los cambios se guardaron correctamente.</p>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center py-4">
+    <div class="container">
+      <p class="mb-1">&copy; <span id="footer-year"></span> ZONA CENTRO INMOBILIARIA.</p>
+      <small>Panel de administración</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>

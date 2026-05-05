@@ -1,0 +1,2620 @@
+﻿<!-- ================== INICIO PARTE 1: HEAD + NAVBAR ================== ordenes de compra de chaquetas, inventario problema de deysi -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ZONA CENTRO INMOBILIARIA</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Tipografias -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f2eee4;
+      --bg-soft:#e8e1d2;
+      --ink:#192534;
+      --muted:#576273;
+      --brand:#102a43;
+      --brand-deep:#0b1d2f;
+      --accent:#c4a15a;
+      --accent-soft:#e9d8b5;
+      --surface:#ffffff;
+      --surface-soft:#f9f6ef;
+      --line:rgba(16,42,67,.14);
+      --shadow:0 14px 34px rgba(9,27,45,.12);
+      --shadow-lg:0 24px 52px rgba(9,27,45,.2);
+      --radius-xl:24px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      padding-top: 88px;
+      padding-bottom: 96px;
+      font-family: "Manrope", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1000px 400px at 0% -5%, rgba(196,161,90,.18), transparent 60%),
+        radial-gradient(900px 360px at 100% 8%, rgba(16,42,67,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg), #f6f3ea 35%, #f8f6f1 100%);
+      text-rendering: optimizeLegibility;
+    }
+    section[id] { scroll-margin-top: 110px; }
+    h1, h2, h3, h4, h5, .navbar-brand { font-family: "Playfair Display", serif; letter-spacing: .2px; }
+    p, li, small, label, input, textarea, select, button, a { font-family: "Manrope", sans-serif; }
+
+    .navbar-custom{
+      background: linear-gradient(90deg, rgba(11,29,47,.92), rgba(16,42,67,.88)) !important;
+      border-bottom: 1px solid rgba(196,161,90,.28);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(8,24,39,.28);
+    }
+    .navbar-custom .nav-link, .navbar-custom .navbar-brand, .navbar-custom .btn { color: #fff !important; }
+    .navbar-custom .navbar-brand{
+      padding: .2rem .35rem;
+      border-radius: 12px;
+      background: linear-gradient(90deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 8px 20px rgba(7,20,33,.24);
+    }
+    .navbar-custom .navbar-brand img{
+      height: 52px;
+      border-radius: 8px;
+      box-shadow: 0 6px 14px rgba(7,20,33,.22);
+    }
+    .navbar-custom .navbar-brand span{
+      font-size: clamp(.78rem, 1.25vw, 1.14rem);
+      letter-spacing: .7px;
+      font-weight: 900;
+      color: #f6e7c4;
+      text-transform: uppercase;
+      text-shadow: 0 1px 0 rgba(0,0,0,.22);
+      line-height: 1.06;
+      max-width: 360px;
+      white-space: normal;
+    }
+    @media (max-width: 991px){
+      .navbar-custom .navbar-brand img{ height: 44px; }
+      .navbar-custom .navbar-brand span{
+        font-size: .74rem;
+        letter-spacing: .45px;
+        max-width: 220px;
+      }
+    }
+    .navbar-custom .nav-link{
+      font-weight: 600;
+      letter-spacing: .4px;
+      opacity: .88;
+      position: relative;
+      transition: opacity .2s ease, color .2s ease;
+    }
+    .navbar-custom .nav-link::after{
+      content:"";
+      position:absolute;
+      left:.75rem;
+      right:.75rem;
+      bottom:.25rem;
+      height:2px;
+      border-radius:999px;
+      background: linear-gradient(90deg, transparent, rgba(246,231,196,.95), transparent);
+      transform: scaleX(0);
+      transform-origin:center;
+      transition: transform .22s ease;
+    }
+    .navbar-custom .nav-link:hover,
+    .navbar-custom .nav-link.active{ opacity: 1; color: #f6e7c4 !important; }
+    .navbar-custom .nav-link:hover::after,
+    .navbar-custom .nav-link.active::after{ transform: scaleX(1); }
+    .navbar-custom .btn-danger{
+      background: linear-gradient(135deg, #c89c4a, #b88935) !important;
+      border-color: transparent !important;
+      color: #101820 !important;
+      font-weight: 800;
+      border-radius: 999px;
+      padding-inline: 1rem;
+      box-shadow: 0 10px 18px rgba(196,161,90,.25);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .navbar-custom .btn-danger:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 14px 24px rgba(196,161,90,.32);
+    }
+
+    .banner{
+      min-height: 82vh;
+      position: relative;
+      color: #fff;
+      background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      overflow: hidden;
+    }
+    .banner::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(11,29,47,.46), rgba(11,29,47,.72)),
+        radial-gradient(900px 260px at 75% 85%, rgba(196,161,90,.22), transparent 60%);
+    }
+    .banner::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image: linear-gradient(115deg, transparent 0 30%, rgba(255,255,255,.06) 30% 33%, transparent 33% 60%, rgba(255,255,255,.04) 60% 62%, transparent 62% 100%);
+      mix-blend-mode: screen;
+      pointer-events:none;
+    }
+    .banner > .container {
+      position: relative;
+      z-index: 1;
+      max-width: 880px;
+    }
+    .banner .display-5{
+      font-size: clamp(2rem, 5.2vw, 3.7rem);
+      line-height: 1.08;
+      text-wrap: balance;
+      text-shadow: 0 6px 24px rgba(0,0,0,.24);
+    }
+    .banner .btn-light{
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.65);
+      background: rgba(255,255,255,.14);
+      color: #fff;
+      backdrop-filter: blur(3px);
+      font-weight: 700;
+      padding: .75rem 1.4rem;
+    }
+    .banner .btn-light:hover{ background: rgba(255,255,255,.24); color:#fff; }
+    @media (max-width: 768px){
+      .banner{ min-height: 74vh; background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80'); }
+    }
+
+    .icon-grid { position: relative; top: -52px; z-index: 3; }
+    .icon-card{
+      width: 100%;
+      min-height: 168px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #faf8f2);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: .25rem;
+      text-decoration: none;
+      color: var(--ink);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    button.icon-card{ appearance: none; cursor: pointer; }
+    .icon-card h6{ margin: 0; font-weight: 800; letter-spacing: .2px; }
+    .icon-card i{ font-size: 2rem; color: var(--brand); margin-bottom: 6px; transition: transform .25s ease, color .25s ease; }
+    .icon-card:hover{
+      transform: translateY(-6px);
+      border-color: rgba(196,161,90,.55);
+      box-shadow: 0 18px 38px rgba(9,27,45,.18);
+      color: var(--brand);
+    }
+    .icon-card:hover i{ transform: translateY(-1px) scale(1.05); color: #a9823f; }
+
+    .properties-section{
+      margin-top: -1.2rem;
+      position: relative;
+      z-index: 2;
+    }
+    .property-filters{
+      display: flex;
+      flex-wrap: wrap;
+      gap: .55rem;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .property-filters .badge{
+      border: 1px solid rgba(16,42,67,.2);
+      color: var(--brand);
+      background: linear-gradient(180deg, #fff, #fbfaf6);
+      font-weight: 700;
+      padding: .55rem .8rem;
+      border-radius: 999px;
+      letter-spacing: .2px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.6);
+    }
+    .property-card{
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff, #fefdfb);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .24s ease, box-shadow .24s ease;
+      height: 100%;
+      position: relative;
+    }
+    .property-card::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:3px;
+      background: linear-gradient(90deg, rgba(16,42,67,.12), rgba(196,161,90,.7), rgba(16,42,67,.12));
+      pointer-events:none;
+    }
+    .property-card:hover{
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+    .property-thumb{
+      height: 190px;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .35s ease;
+    }
+    .property-card:hover .property-thumb{ transform: scale(1.04); }
+    .property-body{ padding: 1rem; position: relative; }
+    .property-head{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .8rem;
+      margin-bottom: .45rem;
+      position: absolute;
+      top: -182px;
+      left: 10px;
+      right: 10px;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .property-type{
+      font-size: .78rem;
+      font-weight: 800;
+      color: #fff;
+      border-radius: 999px;
+      padding: .26rem .58rem;
+      letter-spacing: .35px;
+      background: linear-gradient(135deg, #173a5d, #0e2439);
+      box-shadow: 0 6px 14px rgba(14,36,57,.32);
+    }
+    .property-type.rent{ background: linear-gradient(135deg, #1f4e7b, #143453); }
+    .property-type.sale{ background: linear-gradient(135deg, #b88b3c, #9b742f); }
+    .property-code{
+      font-size: .78rem;
+      font-weight: 800;
+      color: #fff;
+      border-radius: 999px;
+      padding: .26rem .58rem;
+      letter-spacing: .2px;
+      background: linear-gradient(135deg, #173a5d, #0e2439);
+      box-shadow: 0 6px 14px rgba(14,36,57,.32);
+    }
+    .property-title{
+      font-family: "Playfair Display", serif;
+      font-size: 1.18rem;
+      color: #13263d;
+      margin-bottom: .2rem;
+    }
+    .property-zone{
+      color: #4d5d72;
+      font-size: .92rem;
+      margin-bottom: .75rem;
+    }
+    .property-meta{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: .45rem;
+      margin-bottom: .75rem;
+      font-size: .86rem;
+      color: #425167;
+    }
+    .property-meta span{
+      background: #f3f6fa;
+      border: 1px solid #e1e8f0;
+      border-radius: 10px;
+      padding: .35rem .4rem;
+      text-align: center;
+      font-weight: 700;
+    }
+    .property-price{
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #fff;
+      background: linear-gradient(135deg, #143452, #0f253c);
+      margin: .7rem -1rem .8rem;
+      padding: .45rem .8rem;
+      text-align: center;
+      letter-spacing: .4px;
+    }
+    .btn-property{
+      border: 1px solid var(--brand);
+      color: var(--brand);
+      background: #fff;
+      border-radius: 999px;
+      width: 100%;
+      font-weight: 800;
+      letter-spacing: .2px;
+      padding: .48rem .75rem;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      transition: background .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+    .btn-property:hover{
+      background: var(--brand);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(16,42,67,.2);
+    }
+    .property-actions{
+      display: grid;
+      gap: .45rem;
+    }
+    .btn-property.btn-ghost{
+      border-color: rgba(16,42,67,.24);
+      color: #17324f;
+      background: linear-gradient(180deg, #fff, #f9fbfd);
+    }
+    .btn-property.btn-ghost:hover{
+      background: #17324f;
+      color: #fff;
+      border-color: transparent;
+    }
+    .property-detail-carousel .carousel-inner{
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(16,42,67,.14);
+    }
+    .property-detail-carousel img{
+      width: 100%;
+      height: clamp(240px, 42vh, 420px);
+      object-fit: cover;
+      display: block;
+    }
+    .detail-meta-grid{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: .55rem;
+    }
+    .detail-meta-grid span{
+      border: 1px solid rgba(16,42,67,.14);
+      border-radius: 10px;
+      background: #fff;
+      padding: .48rem .58rem;
+      font-size: .9rem;
+      font-weight: 700;
+      color: #22374f;
+    }
+
+    .service-strip{
+      margin-top: 1.2rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(800px 220px at 5% -20%, rgba(196,161,90,.16), transparent 60%),
+        linear-gradient(180deg, #fff, #f8fbff);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+    }
+    .service-item{
+      padding: .85rem;
+      border-radius: 14px;
+      border: 1px solid #deebf7;
+      background: linear-gradient(180deg, #fff, #fbfdff);
+      text-align: center;
+      height: 100%;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .service-item:hover{
+      transform: translateY(-3px);
+      border-color: rgba(16,42,67,.25);
+      box-shadow: 0 14px 26px rgba(10,28,48,.12);
+    }
+    .service-item i{
+      font-size: 1.35rem;
+      color: var(--brand);
+      margin-bottom: .35rem;
+    }
+    .service-item h6{
+      margin-bottom: .2rem;
+      font-weight: 800;
+      color: #1c2f47;
+    }
+    .service-item p{
+      margin-bottom: 0;
+      color: #5c6c7f;
+      font-size: .9rem;
+    }
+
+    section.py-5{ padding-top: 5.1rem !important; padding-bottom: 5.1rem !important; }
+    section h2{
+      font-size: clamp(1.7rem, 3.7vw, 2.5rem);
+      margin-bottom: 1.75rem !important;
+      position: relative;
+      text-align: center;
+    }
+    section h2::after{
+      content:"";
+      display:block;
+      width: 76px;
+      height: 3px;
+      margin: .65rem auto 0;
+      border-radius: 99px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .btn-primary{
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      border-color: transparent;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: .2px;
+      box-shadow: 0 10px 20px rgba(16,42,67,.24);
+      transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+    }
+    .btn-primary:hover{
+      filter: brightness(1.07);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(16,42,67,.28);
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(180deg, #fff, #fcfbf8);
+      box-shadow: var(--shadow);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 18px 34px rgba(9,27,45,.17);
+    }
+    .card-title{ color: var(--brand); }
+    .list-group-item{
+      border: 1px solid var(--line);
+      border-radius: 14px !important;
+      margin-bottom: .55rem;
+      background: #fff;
+      padding: .9rem .95rem;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .list-group-item:hover{
+      transform: translateY(-2px);
+      border-color: rgba(16,42,67,.24);
+      box-shadow: 0 10px 20px rgba(8,22,38,.1);
+    }
+    .list-group-item a{
+      color: inherit;
+    }
+    .list-group-item a:hover .fw-semibold{
+      color: #0f2f4d;
+    }
+
+    .form-control, .form-select{
+      border-radius: 12px;
+      border-color: #d3dbe4;
+      padding: .68rem .85rem;
+      background: #fff;
+    }
+    .form-control:focus, .form-select:focus{
+      border-color: rgba(16,42,67,.6);
+      box-shadow: 0 0 0 .2rem rgba(16,42,67,.12);
+    }
+
+    .hero-phrase{
+      display:inline-block;
+      padding:.62rem 1rem;
+      border-radius:999px;
+      background:
+        linear-gradient(135deg, rgba(196,161,90,.34), rgba(20,52,82,.42));
+      border: 1px solid rgba(255,255,255,.55);
+      color: #fff;
+      backdrop-filter: blur(4px);
+      font-weight: 800;
+      letter-spacing: .2px;
+      box-shadow:
+        0 10px 28px rgba(6,18,30,.28),
+        inset 0 0 0 1px rgba(255,255,255,.18);
+      position: relative;
+      overflow: hidden;
+      animation: heroPulse 2.6s ease-in-out infinite;
+    }
+    .hero-phrase::after{
+      content:"";
+      position:absolute;
+      inset:-20% auto -20% -35%;
+      width: 28%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.42), transparent);
+      transform: skewX(-20deg);
+      animation: heroShine 3.1s ease-in-out infinite;
+    }
+    .rotator{ opacity:0; transition:opacity .6s ease; }
+    .rotator.show{ opacity:1; }
+    @keyframes heroPulse{
+      0%,100% { box-shadow: 0 10px 28px rgba(6,18,30,.28), inset 0 0 0 1px rgba(255,255,255,.18); }
+      50% { box-shadow: 0 14px 34px rgba(6,18,30,.36), 0 0 0 8px rgba(196,161,90,.08), inset 0 0 0 1px rgba(255,255,255,.22); }
+    }
+    @keyframes heroShine{
+      0% { left:-35%; }
+      55%, 100% { left:125%; }
+    }
+
+    .btn-download{
+      background: linear-gradient(135deg, #c89c4a, #b88935);
+      color: #101820;
+      font-weight: 800;
+      letter-spacing: .3px;
+      border: none;
+      border-radius: 999px;
+      padding: .78rem 1.3rem;
+      box-shadow: 0 10px 24px rgba(196,161,90,.32);
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .btn-download:hover{
+      filter:brightness(1.04);
+      color:#101820;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(196,161,90,.36);
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 98px;
+      right: 20px;
+      left: auto;
+      background: linear-gradient(135deg, #35d26f, #1ea955);
+      color: #fff;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-size: 22px;
+      z-index: 1000;
+      box-shadow: 0 14px 30px rgba(18,120,59,.38);
+      border: 1px solid rgba(255,255,255,.5);
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      font-weight: 800;
+      letter-spacing: .2px;
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+      animation: whatsappPulse 1.8s ease-in-out infinite;
+    }
+    .whatsapp-float::after{
+      content:"Contactar";
+      font-size: .9rem;
+      line-height: 1;
+    }
+    .whatsapp-float:hover {
+      transform: translateY(-3px) scale(1.04);
+      color:#fff;
+      filter: saturate(1.05);
+      box-shadow: 0 20px 36px rgba(18,120,59,.46);
+      animation-play-state: paused;
+    }
+    @keyframes whatsappPulse{
+      0%, 100% { box-shadow: 0 14px 30px rgba(18,120,59,.38), 0 0 0 0 rgba(46,203,99,.48); }
+      50% { box-shadow: 0 16px 34px rgba(18,120,59,.44), 0 0 0 14px rgba(46,203,99,0); }
+    }
+    @media (max-width: 576px){
+      .whatsapp-float{
+        right: 14px;
+        bottom: 82px;
+        padding: 11px 13px;
+      }
+      .whatsapp-float::after{ content:"WhatsApp"; font-size: .82rem; }
+    }
+
+    .quick-dock{
+      position: fixed;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+      width: min(860px, calc(100% - 20px));
+      background: rgba(255,255,255,.98);
+      border: 1px solid rgba(16,42,67,.16);
+      border-radius: 16px;
+      box-shadow: 0 18px 40px rgba(8,22,38,.24);
+      z-index: 1030;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+    .quick-dock-btn{
+      border: 0;
+      background: transparent;
+      padding: .6rem .45rem .55rem;
+      color: #132a43;
+      font-weight: 800;
+      font-size: .83rem;
+      letter-spacing: .35px;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .22rem;
+      text-decoration: none;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+    .quick-dock-btn + .quick-dock-btn{
+      border-left: 1px solid rgba(16,42,67,.12);
+    }
+    .quick-dock-btn i{
+      color: #b88b3c;
+      font-size: 1rem;
+    }
+    .quick-dock-btn:hover{
+      background: linear-gradient(180deg, #fff, #f5f8fc);
+      color: #0f2f4d;
+      transform: translateY(-1px);
+    }
+    @media (max-width: 768px){
+      body{ padding-bottom: 102px; }
+      .quick-dock{
+        bottom: 8px;
+        border-radius: 14px;
+      }
+      .quick-dock-btn{
+        font-size: .74rem;
+        padding: .58rem .35rem .52rem;
+      }
+    }
+
+    footer{
+      background:
+        radial-gradient(600px 180px at 15% -40%, rgba(196,161,90,.22), transparent 65%),
+        linear-gradient(120deg, #0a1a2b, #102a43);
+      color:#dbe6f3;
+      border-top: 1px solid rgba(196,161,90,.24);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    footer small{ color:#c1cede; }
+
+    #news-tags .btn{
+      border-radius: 999px;
+      border: 1px solid rgba(16,42,67,.16);
+      background: #fff;
+      font-weight: 700;
+    }
+    #news-tags .btn.active{
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(135deg, #143452, #0e2338);
+      box-shadow: 0 8px 18px rgba(10,28,48,.2);
+    }
+
+    .modal-content{
+      border-radius: 18px !important;
+      border: 1px solid rgba(16,42,67,.14) !important;
+      background:
+        radial-gradient(420px 120px at 0% 0%, rgba(196,161,90,.14), transparent 60%),
+        linear-gradient(180deg, #fff, #fdfbf7);
+      box-shadow: 0 22px 50px rgba(8,22,38,.22);
+    }
+
+    .reveal{
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .65s ease, transform .65s cubic-bezier(.21,.88,.24,1);
+      will-change: opacity, transform;
+    }
+    .reveal.in-view{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .rotator, .reveal, .icon-card, .card, .hero-phrase { transition:none !important; animation:none !important; }
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- Botón WhatsApp -->
+  <a href="https://wa.me/573135715662" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Barra fija inferior de accesos -->
+  <nav class="quick-dock" aria-label="Accesos rápidos">
+    <a href="#inmuebles" class="quick-dock-btn">
+      <i class="fa-solid fa-building"></i>
+      <span>Propiedades</span>
+    </a>
+    <button type="button" class="quick-dock-btn" id="quick-open-formularios">
+      <i class="fa-regular fa-file-lines"></i>
+      <span>Formularios</span>
+    </button>
+    <a href="#contacto" class="quick-dock-btn">
+      <i class="fa-solid fa-credit-card"></i>
+      <span>Zona Pagos</span>
+    </a>
+  </nav>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#inicio" aria-label="Inicio ZONA CENTRO INMOBILIARIA">
+        <img src="https://lh6.googleusercontent.com/proxy/nrNHC_m0_RziCYvfPgJptLNNArq79MIcN8ioocFEzebfnCZt-jW29kjHgaDfxW5Tz1GvVpGl__fDRxH9ZWIz1X6VQOLKh_lBjogaXQA2NJKuDF2FiKsQJcMm6sAI" alt="Logo ZCI" height="42" loading="lazy">
+        <span>ZONA CENTRO INMOBILIARIA</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#inmuebles">Inmuebles</a></li>
+          <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        </ul>
+        <a href="https://wa.me/573135715662" target="_blank" rel="noopener noreferrer" class="btn btn-danger ms-lg-3 mt-3 mt-lg-0">
+          <i class="fas fa-phone-alt"></i> 313 571 5662
+        </a>
+      </div>
+    </div>
+  </nav>
+<!-- ================== FIN PARTE 1 ================== -->
+<!-- ================== INICIO PARTE 2: HERO + ICON GRID + NOTICIAS ================== -->
+
+<!-- Hero -->
+<header id="inicio" class="banner d-flex align-items-center text-center">
+  <div class="container">
+    <h1 class="display-5 fw-bold">Bienvenido a ZONA CENTRO INMOBILIARIA</h1>
+    <p class="lead mb-3">
+      <span id="hero-rotator" class="hero-phrase rotator show">
+        Somos la pieza esencial para su inversión inmobiliaria.
+      </span>
+    </p>
+    <a href="#contacto" class="btn btn-light btn-lg">Contáctanos</a>
+  </div>
+</header>
+
+<!-- Inmuebles destacados -->
+<section id="inmuebles" class="py-5 properties-section">
+  <div class="container">
+    <h2 class="text-center mb-3">Últimos Inmuebles Ingresados</h2>
+    <p class="text-center text-muted mb-4">Opciones en arriendo y venta con ubicación estratégica en Medellín y el área metropolitana.</p>
+
+    <div class="property-filters">
+      <span class="badge">Arriendo</span>
+      <span class="badge">Venta</span>
+      <span class="badge">Apartamentos</span>
+      <span class="badge">Locales</span>
+      <span class="badge">Oficinas</span>
+    </div>
+
+    <div class="text-center mb-4">
+      <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalSubirFotosInmueble">
+        <i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir fotos de inmuebles
+      </button>
+      <p class="small text-muted mt-2 mb-0">La visualización es pública. Para subir fotos necesitas iniciar sesión.</p>
+      <p class="small text-muted mt-1 mb-0" id="supabase-public-status">Cargando inmuebles recientes...</p>
+    </div>
+
+    <div class="row g-4" id="inmuebles-lista">
+      <div class="col-md-6 col-lg-4">
+        <article class="property-card">
+          <img class="property-thumb" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Apartamento en Laureles">
+          <div class="property-body">
+            <div class="property-head">
+              <span class="property-type rent">ARRIENDO</span>
+              <span class="property-code">Cod. 1042</span>
+            </div>
+            <h3 class="property-title">Apartamento Moderno</h3>
+            <p class="property-zone"><i class="fa-solid fa-location-dot me-1"></i>Laureles, Medellín</p>
+            <div class="property-meta">
+              <span>82 m²</span>
+              <span>3 hab</span>
+              <span>2 baños</span>
+            </div>
+            <div class="property-price">$2.900.000 / mes</div>
+            <a href="#contacto" class="btn-property">Solicitar Información</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <article class="property-card">
+          <img class="property-thumb" src="https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=900&q=80" alt="Local comercial en el centro">
+          <div class="property-body">
+            <div class="property-head">
+              <span class="property-type rent">ARRIENDO</span>
+              <span class="property-code">Cod. 2188</span>
+            </div>
+            <h3 class="property-title">Local Comercial</h3>
+            <p class="property-zone"><i class="fa-solid fa-location-dot me-1"></i>Centro, Medellín</p>
+            <div class="property-meta">
+              <span>45 m²</span>
+              <span>1 salón</span>
+              <span>1 baño</span>
+            </div>
+            <div class="property-price">$3.250.000 / mes</div>
+            <a href="#contacto" class="btn-property">Solicitar Información</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <article class="property-card">
+          <img class="property-thumb" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80" alt="Casa en venta en Envigado">
+          <div class="property-body">
+            <div class="property-head">
+              <span class="property-type sale">VENTA</span>
+              <span class="property-code">Cod. 3321</span>
+            </div>
+            <h3 class="property-title">Casa Familiar</h3>
+            <p class="property-zone"><i class="fa-solid fa-location-dot me-1"></i>Envigado</p>
+            <div class="property-meta">
+              <span>160 m²</span>
+              <span>4 hab</span>
+              <span>3 baños</span>
+            </div>
+            <div class="property-price">$720.000.000</div>
+            <a href="#contacto" class="btn-property">Solicitar Información</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="service-strip">
+      <div class="row g-3">
+        <div class="col-sm-6 col-lg-3">
+          <div class="service-item">
+            <i class="fa-solid fa-key"></i>
+            <h6>Arrienda Seguro</h6>
+            <p>Estudio y selección de arrendatarios.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="service-item">
+            <i class="fa-solid fa-chart-line"></i>
+            <h6>Valorización</h6>
+            <p>Estrategias para proteger tu inversión.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="service-item">
+            <i class="fa-solid fa-file-signature"></i>
+            <h6>Gestión Legal</h6>
+            <p>Contratos claros y acompañamiento.</p>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="service-item">
+            <i class="fa-solid fa-headset"></i>
+            <h6>Atención Rápida</h6>
+            <p>Soporte ágil para propietarios e inquilinos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Noticias (siempre visibles) -->
+<section id="noticias" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-3">Noticias</h2>
+    <p class="text-center text-muted mb-2">Actualidad del sector inmobiliario, vivienda, arriendos y propiedad horizontal.</p>
+    <div class="text-center mb-3">
+      <span class="badge bg-light text-dark" id="news-count">0 noticias</span>
+      <small class="text-muted ms-2" id="news-last-update">Actualizando titulares...</small>
+    </div>
+
+    <!-- Filtros -->
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <input id="news-search" type="search" class="form-control" placeholder="Buscar por título o fuente...">
+      </div>
+      <div class="col-md-6 text-md-end">
+        <div id="news-tags" class="d-inline-flex flex-wrap gap-2">
+          <!-- chips generadas por JS (Parte 4) -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de noticias -->
+    <ul class="list-group" id="news-list">
+      <!-- items generados por JS (Parte 4) -->
+    </ul>
+  </div>
+</section>
+
+<!-- ================== FIN PARTE 2 ================== -->
+<!-- ================== INICIO PARTE 3: NOSOTROS + CONTACTO + PQRSF + MODAL ================== -->
+
+<!-- Nosotros -->
+<section id="nosotros" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">Nosotros</h2>
+
+    <!-- Historia, Misión, Visión -->
+    <div class="row g-4 mb-4">
+      <div class="col-lg-6">
+        <div class="card h-100 p-2">
+          <div class="card-body">
+            <span class="badge bg-light text-dark mb-2">Nuestra Historia</span>
+            <h5 class="card-title">Gestores de activos inmobiliarios</h5>
+            <p class="card-text">
+              Un gran empresario, con perseverancia y ética de trabajo, soñó con construir un futuro mejor para su familia aportando socialmente en la generación de empleo. Invirtió en su primera propiedad y reinvirtió las ganancias, ladrillo a ladrillo, hasta consolidar un portafolio sin perder sus raíces. En 2014 fundó ZONA CENTRO INMOBILIARIA, empresa que refleja honestidad, dedicación y excelencia.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card h-100 p-2">
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="p-3 rounded-3 border">
+                  <h6 class="mb-2"><i class="fa-solid fa-bullseye me-2"></i>Misión</h6>
+                  <p class="mb-0">Ser guardianes confiables del patrimonio de nuestros propietarios, protegiendo y aumentando el valor de sus inversiones con integridad, transparencia y dedicación.</p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="p-3 rounded-3 border">
+                  <h6 class="mb-2"><i class="fa-regular fa-eye me-2"></i>Visión</h6>
+                  <p class="mb-0">Ser la gestora líder de activos inmobiliarios, reconocida por excelencia operativa, innovación y compromiso con la satisfacción del cliente.</p>
+                </div>
+              </div>
+            </div> <!-- row -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Objetivos / Pilares / Valores -->
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fa-regular fa-flag me-2"></i>Objetivos</h5>
+            <ul class="mt-3 mb-0">
+              <li>Seleccionar arrendatarios confiables bajo estándares de responsabilidad.</li>
+              <li>Brindar experiencias positivas y soluciones eficaces a los arrendatarios.</li>
+              <li>Ser referentes por integridad, excelencia de servicio y valor para propietarios.</li>
+              <li>Posicionarnos por calidad de proyectos y satisfacción de clientes.</li>
+              <li>Hacer de cada convenio una experiencia memorable.</li>
+              <li>Destacar por innovación, eficiencia y compromiso con la excelencia.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fa-solid fa-gem me-2"></i>Pilares</h5>
+            <div class="row g-3 mt-1">
+              <div class="col-sm-6">
+                <div class="p-3 rounded-3 border h-100">
+                  <h6 class="mb-1"><i class="fa-solid fa-star me-1"></i>Excelencia</h6>
+                  <p class="mb-0 small">Calidad y mejora continua para superar expectativas.</p>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="p-3 rounded-3 border h-100">
+                  <h6 class="mb-1"><i class="fa-solid fa-lightbulb me-1"></i>Innovación</h6>
+                  <p class="mb-0 small">Tecnología y procesos eficientes para mejores resultados.</p>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="p-3 rounded-3 border h-100">
+                  <h6 class="mb-1"><i class="fa-solid fa-book-open me-1"></i>Aprendizaje</h6>
+                  <p class="mb-0 small">Crecimiento continuo del equipo.</p>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="p-3 rounded-3 border h-100">
+                  <h6 class="mb-1"><i class="fa-solid fa-shield-heart me-1"></i>Resiliencia</h6>
+                  <p class="mb-0 small">Adaptabilidad y soluciones creativas ante desafíos.</p>
+                </div>
+              </div>
+            </div> <!-- row -->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fa-solid fa-scale-balanced me-2"></i>Valores</h5>
+            <div class="row g-3 mt-1">
+              <div class="col-md-6">
+                <ul class="mb-0">
+                  <li><strong>Honestidad:</strong> transparencia en el uso de información y recursos.</li>
+                  <li><strong>Responsabilidad:</strong> asumir consecuencias y cumplir metas.</li>
+                  <li><strong>Laboriosidad:</strong> trabajo como fuerza transformadora.</li>
+                  <li><strong>Solidaridad:</strong> compañerismo y trabajo en equipo.</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <ul class="mb-0">
+                  <li><strong>Confianza:</strong> información ágil, veraz y exacta; mejora continua.</li>
+                  <li><strong>Orden:</strong> procesos organizados y uso racional de recursos.</li>
+                  <li><strong>Transparencia:</strong> reglas claras para conocer condiciones del negocio.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- row -->
+  </div>
+</section>
+
+<!-- Contacto -->
+<section id="contacto" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Contáctanos</h2>
+
+    <div class="row g-4">
+      <!-- Card: Formulario de Contacto -->
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title mb-3"><i class="fa-regular fa-envelope me-2"></i>Escríbenos</h5>
+
+            <div class="alert alert-success d-none" role="alert" id="msg-ok">
+              ¡Gracias! Hemos recibido tu mensaje. Te contactaremos muy pronto.
+            </div>
+            <div class="alert alert-danger d-none" role="alert" id="msg-error">
+              Hubo un problema al enviar el mensaje. Intenta nuevamente o escríbenos al WhatsApp.
+            </div>
+
+            <form class="row g-3 needs-validation" id="form-contacto" novalidate>
+              <div class="col-12">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Tu nombre" required>
+                <div class="invalid-feedback">Por favor ingresa tu nombre.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" placeholder="correo@ejemplo.com" required>
+                <div class="invalid-feedback">Correo inválido.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="telefono" placeholder="300 000 0000">
+              </div>
+              <div class="col-12">
+                <label for="mensaje" class="form-label">Mensaje</label>
+                <textarea class="form-control" id="mensaje" rows="4" placeholder="¿Cómo podemos ayudarte?" required></textarea>
+                <div class="invalid-feedback">Escribe tu mensaje.</div>
+              </div>
+
+              <!-- Honeypot anti-spam -->
+              <div class="d-none">
+                <label>Dejar en blanco</label>
+                <input type="text" id="website" autocomplete="off">
+              </div>
+
+              <div class="col-12 text-end">
+                <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Mapa / Ubicación -->
+      <div class="col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title mb-3"><i class="fa-solid fa-location-dot me-2"></i>Nuestra ubicación</h5>
+            <p class="mb-2">Calle 50 #54-25, La Candelaria, Medellín, Antioquia</p>
+            <div class="ratio ratio-16x9">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.9061986172875!2d-75.57378022581247!3d6.250459926305408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442a121c768d13%3A0x32a5b0ddabc1c42f!2sCl.%2050%20%2354-25%2C%20La%20Candelaria%2C%20Medell%C3%ADn%2C%20La%20Candelaria%2C%20Medellin%2C%20Antioquia!5e0!3m2!1ses-419!2sco!4v1691689189246!5m2!1ses-419!2sco"
+                style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de ubicación ZCI"></iframe>
+            </div>
+            <div class="mt-3">
+              <a class="btn btn-outline-primary btn-sm" target="_blank" rel="noopener"
+                 href="https://maps.google.com/?q=Calle%2050%20%2354-25%2C%20Medell%C3%ADn">Abrir en Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PQRSF -->
+    <div class="row g-4 mt-2">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title mb-3"><i class="fa-regular fa-file-lines me-2"></i>PQRSF (Peticiones, Quejas, Reclamos, Sugerencias y Felicitaciones)</h5>
+
+            <div class="alert alert-success d-none" role="alert" id="pqr-ok">
+              ¡Tu PQRSF fue registrada! Te contactaremos según el canal elegido.
+            </div>
+            <div class="alert alert-danger d-none" role="alert" id="pqr-error">
+              No pudimos enviar tu PQRSF. Intenta de nuevo o escríbenos por WhatsApp.
+            </div>
+
+            <form class="row g-3 needs-validation" id="form-pqr" novalidate>
+              <div class="col-md-4">
+                <label for="pqr-tipo" class="form-label">Tipo de solicitud</label>
+                <select id="pqr-tipo" class="form-select" required>
+                  <option value="" selected disabled>Selecciona...</option>
+                  <option>Petición</option>
+                  <option>Queja</option>
+                  <option>Reclamo</option>
+                  <option>Sugerencia</option>
+                  <option>Felicitación</option>
+                </select>
+                <div class="invalid-feedback">Selecciona el tipo.</div>
+              </div>
+              <div class="col-md-4">
+                <label for="pqr-nombre" class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" id="pqr-nombre" required>
+                <div class="invalid-feedback">Ingresa tu nombre.</div>
+              </div>
+              <div class="col-md-4">
+                <label for="pqr-doc" class="form-label">Documento</label>
+                <input type="text" class="form-control" id="pqr-doc" placeholder="Cédula/NIT" required>
+                <div class="invalid-feedback">Ingresa tu documento.</div>
+              </div>
+              <div class="col-md-4">
+                <label for="pqr-email" class="form-label">Correo</label>
+                <input type="email" class="form-control" id="pqr-email" placeholder="correo@ejemplo.com" required>
+                <div class="invalid-feedback">Correo inválido.</div>
+              </div>
+              <div class="col-md-4">
+                <label for="pqr-tel" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="pqr-tel" placeholder="300 000 0000">
+              </div>
+              <div class="col-md-4">
+                <label for="pqr-canal" class="form-label">Canal preferido</label>
+                <select id="pqr-canal" class="form-select">
+                  <option>Llamada</option>
+                  <option>WhatsApp</option>
+                  <option>Correo</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="pqr-asunto" class="form-label">Asunto</label>
+                <input type="text" class="form-control" id="pqr-asunto" required>
+                <div class="invalid-feedback">Ingresa un asunto.</div>
+              </div>
+              <div class="col-12">
+                <label for="pqr-desc" class="form-label">Descripción</label>
+                <textarea id="pqr-desc" class="form-control" rows="5" required placeholder="Describe tu solicitud..."></textarea>
+                <div class="invalid-feedback">Describe tu caso.</div>
+              </div>
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="pqr-habeas" required>
+                  <label class="form-check-label" for="pqr-habeas">
+                    Acepto el tratamiento de datos según la Ley 1581 de 2012.
+                  </label>
+                  <div class="invalid-feedback">Debes aceptar el tratamiento de datos.</div>
+                </div>
+              </div>
+
+              <!-- Honeypot anti-spam -->
+              <div class="d-none">
+                <label>Dejar en blanco</label>
+                <input type="text" id="pqr-website" autocomplete="off">
+              </div>
+
+              <div class="col-12 text-end">
+                <button type="submit" class="btn btn-primary">Enviar PQRSF</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Modal: Formularios (abre desde el Icon Grid) -->
+<div class="modal fade" id="modalFormularios" tabindex="-1" aria-labelledby="modalFormulariosLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-0" style="border-radius:16px;">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="modalFormulariosLabel">
+          <i class="fa-regular fa-file-lines me-2"></i>Formularios
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body pt-0">
+        <div class="row g-4">
+          <div class="col-12">
+            <div class="alert alert-info mb-0" id="forms-status-alert">
+              Cargando formularios...
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="card h-100 p-3 shadow-sm">
+              <div class="card-body">
+                <h5 class="mb-2"><i class="fa-regular fa-folder-open me-2"></i>Formularios disponibles</h5>
+                <p class="text-muted mb-3">Descarga los formularios vigentes directamente desde Supabase.</p>
+                <ul class="list-group" id="forms-list">
+                  <li class="list-group-item text-muted">No hay formularios cargados.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="card h-100 p-3 shadow-sm">
+              <div class="card-body">
+                <h5 class="mb-2"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir nuevo formulario</h5>
+                <p class="text-muted mb-3">Solo usuarios autenticados pueden cargar archivos.</p>
+
+                <div id="forms-auth-panel">
+                  <form id="forms-login-form" class="row g-3" novalidate>
+                    <div class="col-md-6">
+                      <label class="form-label" for="forms-email">Correo</label>
+                      <input type="email" class="form-control" id="forms-email" placeholder="usuario@empresa.com" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label" for="forms-password">Contraseña</label>
+                      <input type="password" class="form-control" id="forms-password" minlength="6" required>
+                    </div>
+                    <div class="col-12 text-end">
+                      <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-right-to-bracket me-2"></i>Iniciar sesión
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+                <div id="forms-upload-panel" class="d-none">
+                  <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+                    <small class="text-muted">Sesión activa: <span id="forms-user-email" class="fw-semibold"></span></small>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="forms-logout-btn">Cerrar sesión</button>
+                  </div>
+                  <form id="forms-upload-form" class="row g-3" novalidate>
+                    <div class="col-md-6">
+                      <label class="form-label" for="forms-file-name">Nombre del formulario</label>
+                      <input type="text" class="form-control" id="forms-file-name" placeholder="Ejemplo: Formulario de Arrendamiento" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label" for="forms-file-input">Archivo</label>
+                      <input type="file" class="form-control" id="forms-file-input" accept=".pdf,.doc,.docx,.xlsx,.xls,.ppt,.pptx,.txt" required>
+                    </div>
+                    <div class="col-12 text-end">
+                      <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-upload me-2"></i>Subir formulario
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Subir fotos de inmuebles (requiere autenticación) -->
+<div class="modal fade" id="modalSubirFotosInmueble" tabindex="-1" aria-labelledby="modalSubirFotosInmuebleLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-0" style="border-radius:16px;">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="modalSubirFotosInmuebleLabel">
+          <i class="fa-solid fa-images me-2"></i>Subir fotos de inmuebles
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body pt-0">
+        <div id="supabase-upload-status" class="alert alert-info mb-3" role="alert">
+          Verificando sesión...
+        </div>
+
+        <div id="supabase-auth-panel">
+          <p class="text-muted">Inicia sesión para cargar nuevas fotos al inventario de inmuebles.</p>
+          <form id="supabase-login-form" class="row g-3" novalidate>
+            <div class="col-md-6">
+              <label class="form-label" for="supabase-email">Correo</label>
+              <input type="email" class="form-control" id="supabase-email" placeholder="usuario@empresa.com" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="supabase-password">Contraseña</label>
+              <input type="password" class="form-control" id="supabase-password" minlength="6" required>
+            </div>
+            <div class="col-12 text-end">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-right-to-bracket me-2"></i>Iniciar sesión
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div id="supabase-uploader-panel" class="d-none">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+            <small class="text-muted">Sesión activa: <span id="supabase-user-email" class="fw-semibold"></span></small>
+            <button type="button" id="supabase-logout-btn" class="btn btn-outline-secondary btn-sm">Cerrar sesión</button>
+          </div>
+          <div class="d-flex flex-wrap gap-2 mb-2">
+            <button type="button" id="supabase-fill-last-btn" class="btn btn-outline-secondary btn-sm">
+              <i class="fa-solid fa-wand-magic-sparkles me-1"></i>Autollenar último inmueble
+            </button>
+            <button type="button" id="supabase-suggest-title-btn" class="btn btn-outline-secondary btn-sm">
+              <i class="fa-regular fa-lightbulb me-1"></i>Sugerir título
+            </button>
+          </div>
+
+          <form id="supabase-upload-form" class="row g-3" novalidate>
+            <div class="col-md-4">
+              <label class="form-label" for="supabase-property-code">Código del inmueble</label>
+              <input type="text" class="form-control" id="supabase-property-code" placeholder="Ejemplo: 1042" autocomplete="off" required>
+              <small class="text-muted" id="supabase-code-hint">Se asigna automáticamente por consecutivo.</small>
+            </div>
+            <div class="col-md-8">
+              <label class="form-label" for="supabase-property-title">Título</label>
+              <input type="text" class="form-control" id="supabase-property-title" placeholder="Ejemplo: Apartamento Moderno" autocomplete="on" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" for="supabase-property-business">Negocio</label>
+              <select class="form-select" id="supabase-property-business" required>
+                <option value="" selected disabled>Selecciona...</option>
+                <option value="arriendo">Arriendo</option>
+                <option value="venta">Venta</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" for="supabase-property-type">Tipo inmueble</label>
+              <input type="text" class="form-control" id="supabase-property-type" list="property-type-suggestions" placeholder="Apartamento, Local, Casa..." autocomplete="on" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" for="supabase-property-city">Ciudad</label>
+              <input type="text" class="form-control" id="supabase-property-city" list="property-city-suggestions" placeholder="Medellín" autocomplete="address-level2" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="supabase-property-zone">Zona / barrio</label>
+              <input type="text" class="form-control" id="supabase-property-zone" list="property-zone-suggestions" placeholder="Laureles, Centro, Envigado..." autocomplete="street-address">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="supabase-property-area">Área (m²)</label>
+              <input type="number" step="0.01" min="0" class="form-control" id="supabase-property-area" placeholder="82">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="supabase-property-price">Precio</label>
+              <input type="number" step="1" min="0" class="form-control" id="supabase-property-price" placeholder="2900000" required>
+              <small class="text-muted" id="supabase-price-preview">Formato: $0</small>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="supabase-property-bedrooms">Habitaciones</label>
+              <input type="number" min="0" class="form-control" id="supabase-property-bedrooms" placeholder="3">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="supabase-property-bathrooms">Baños</label>
+              <input type="number" min="0" class="form-control" id="supabase-property-bathrooms" placeholder="2">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="supabase-photo-files">Fotos</label>
+              <input type="file" class="form-control" id="supabase-photo-files" accept="image/*" multiple required>
+              <small class="text-muted">Puedes seleccionar varias imágenes.</small>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="supabase-property-description">Descripción</label>
+              <textarea class="form-control" id="supabase-property-description" rows="2" placeholder="Descripción corta del inmueble."></textarea>
+            </div>
+            <div class="col-12">
+              <small class="text-muted">El código también se usa para organizar las fotos en el bucket.</small>
+            </div>
+            <datalist id="property-type-suggestions">
+              <option value="Apartamento"></option>
+              <option value="Casa"></option>
+              <option value="Local"></option>
+              <option value="Oficina"></option>
+              <option value="Bodega"></option>
+              <option value="Lote"></option>
+            </datalist>
+            <datalist id="property-city-suggestions">
+              <option value="Medellín"></option>
+              <option value="Envigado"></option>
+              <option value="Itagüí"></option>
+              <option value="Sabaneta"></option>
+              <option value="Bello"></option>
+              <option value="La Estrella"></option>
+            </datalist>
+            <datalist id="property-zone-suggestions">
+              <option value="Laureles"></option>
+              <option value="El Poblado"></option>
+              <option value="Centro"></option>
+              <option value="Belén"></option>
+              <option value="Robledo"></option>
+              <option value="Envigado"></option>
+            </datalist>
+            <div class="col-12 text-end">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-upload me-2"></i>Subir fotos
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Detalle completo de inmueble -->
+<div class="modal fade" id="modalDetalleInmueble" tabindex="-1" aria-labelledby="modalDetalleInmuebleLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content border-0">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="modalDetalleInmuebleLabel">Detalle de inmueble</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body pt-0">
+        <div id="property-detail-content"></div>
+      </div>
+      <div class="modal-footer border-0">
+        <a href="#contacto" class="btn btn-primary" data-bs-dismiss="modal">Solicitar Información</a>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================== FIN PARTE 3 ================== -->
+<!-- ================== INICIO PARTE 4: FOOTER + SCRIPTS ================== -->
+
+<!-- Footer -->
+<footer class="text-center py-4">
+  <div class="container">
+    <p class="mb-1">&copy; <span id="footer-year"></span> ZONA CENTRO INMOBILIARIA. Todos los derechos reservados.</p>
+    <small>Dirección: Calle 50 #54-25, Medellín, Antioquia · Tel: 313 571 5662</small>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // ========= ROTADOR DE FRASES (Hero) =========
+  const HERO_PHRASES = [
+    "Somos la pieza esencial para su inversión inmobiliaria.",
+    "Confianza, transparencia y dedicación en cada proyecto.",
+    "Protegemos y aumentamos el valor de su patrimonio.",
+    "Administración experta de arriendos y activos inmobiliarios."
+  ];
+  (function rotateHeroPhrase(){
+    const el = document.getElementById('hero-rotator');
+    if(!el || HERO_PHRASES.length < 2) return;
+    let i = 0;
+    const DURATION = 3500, FADE = 400;
+    setInterval(()=>{
+      el.classList.remove('show');         // fade out
+      setTimeout(()=>{
+        i = (i + 1) % HERO_PHRASES.length;
+        el.textContent = HERO_PHRASES[i];  // nuevo texto
+        el.classList.add('show');          // fade in
+      }, FADE);
+    }, DURATION);
+  })();
+
+  // ========= CONFIG: Noticias (actualización automática) =========
+  const NEWS_FALLBACK_ITEMS = [
+    {
+      title: "Panorama de vivienda y arriendos en Colombia 2026",
+      source: "Sector inmobiliario",
+      url: "https://www.minvivienda.gov.co/",
+      date: "2026-01-15",
+      tags: ["Vivienda", "Arriendos", "Colombia"]
+    },
+    {
+      title: "Indicadores para compra y venta de inmuebles en 2026",
+      source: "Mercado inmobiliario",
+      url: "https://www.fincaraiz.com.co/",
+      date: "2026-01-10",
+      tags: ["Venta", "Mercado", "Inversión"]
+    },
+    {
+      title: "Actualizaciones en propiedad horizontal y administración",
+      source: "Normativa",
+      url: "https://www.supernotariado.gov.co/",
+      date: "2026-01-05",
+      tags: ["Propiedad Horizontal", "Normatividad"]
+    }
+  ];
+  const NEWS_RSS_SOURCES = [
+    { source: "Google News", url: "https://news.google.com/rss/search?q=inmobiliario+colombia&hl=es-419&gl=CO&ceid=CO:es-419" },
+    { source: "Google News", url: "https://news.google.com/rss/search?q=arriendos+medellin&hl=es-419&gl=CO&ceid=CO:es-419" },
+    { source: "Google News", url: "https://news.google.com/rss/search?q=propiedad+horizontal+colombia&hl=es-419&gl=CO&ceid=CO:es-419" }
+  ];
+
+  // ========= Supabase: login para subida de fotos =========
+  const SUPABASE_URL = "https://cbplebkmxrkaafqdhiyi.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_DZCceNTENY4ViP17-eZrGg_bdMElZ9X";
+  const SUPABASE_BUCKET = "inmuebles-fotos";
+  const SUPABASE_FORMS_BUCKET = "formularios-zci";
+  const FALLBACK_PROPERTY_IMG = "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80";
+  const supabaseClient = window.supabase?.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  const inmueblesListEl = document.getElementById('inmuebles-lista');
+  const publicStatusEl = document.getElementById('supabase-public-status');
+  const defaultInmueblesMarkup = inmueblesListEl?.innerHTML || '';
+  const propertyDetailContentEl = document.getElementById('property-detail-content');
+  const modalDetalleInmuebleEl = document.getElementById('modalDetalleInmueble');
+  const modalDetalleInmuebleTitleEl = document.getElementById('modalDetalleInmuebleLabel');
+  const inmueblesCacheById = new Map();
+  let modalDetalleInmuebleInstance = null;
+
+  function escapeHtml(value){
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function formatCOP(value){
+    const numberValue = Number(value);
+    if (!Number.isFinite(numberValue)) return '$0';
+    return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(numberValue);
+  }
+
+  function getPrimaryPhotoUrl(fotos){
+    if (!Array.isArray(fotos) || !fotos.length) return FALLBACK_PROPERTY_IMG;
+    const mainPhoto = fotos.find((f) => f?.es_principal && f?.url_publica);
+    return mainPhoto?.url_publica || fotos.find((f) => f?.url_publica)?.url_publica || FALLBACK_PROPERTY_IMG;
+  }
+
+  function normalizeFotos(fotos){
+    return (Array.isArray(fotos) ? fotos : [])
+      .filter((f) => f?.url_publica)
+      .sort((a, b) => {
+        if (a.es_principal === b.es_principal){
+          return String(a.created_at || '').localeCompare(String(b.created_at || ''));
+        }
+        return a.es_principal ? -1 : 1;
+      });
+  }
+
+  function renderPropertyDetailModal(inmuebleId){
+    const inmueble = inmueblesCacheById.get(inmuebleId);
+    if (!inmueble || !propertyDetailContentEl || !modalDetalleInmuebleEl) return;
+
+    const fotos = normalizeFotos(inmueble.inmueble_fotos);
+    const title = escapeHtml(inmueble.titulo || 'Inmueble');
+    const code = escapeHtml(inmueble.codigo || 'Sin código');
+    const negocio = inmueble.tipo_negocio === 'arriendo' ? 'Arriendo' : 'Venta';
+    const type = escapeHtml(inmueble.tipo_inmueble || 'No especificado');
+    const zone = escapeHtml([inmueble.zona, inmueble.ciudad].filter(Boolean).join(', ') || 'Ubicación no registrada');
+    const areaText = inmueble.area_m2 ? `${Number(inmueble.area_m2)} m²` : 'No especificado';
+    const habText = Number.isFinite(Number(inmueble.habitaciones)) ? `${inmueble.habitaciones} hab` : 'No especificado';
+    const banosText = Number.isFinite(Number(inmueble.banos)) ? `${inmueble.banos} baños` : 'No especificado';
+    const priceText = `${formatCOP(inmueble.precio)}${inmueble.tipo_negocio === 'arriendo' ? ' / mes' : ''}`;
+    const descripcion = escapeHtml(inmueble.descripcion || 'Sin descripción adicional.');
+    const carouselId = `property-detail-carousel-${inmuebleId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
+
+    const carouselItems = (fotos.length ? fotos : [{ url_publica: FALLBACK_PROPERTY_IMG }]).map((foto, idx) => `
+      <div class="carousel-item ${idx === 0 ? 'active' : ''}">
+        <img src="${escapeHtml(foto.url_publica)}" alt="${title} - Foto ${idx + 1}">
+      </div>
+    `).join('');
+
+    const carouselControls = fotos.length > 1 ? `
+      <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    ` : '';
+
+    propertyDetailContentEl.innerHTML = `
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div id="${carouselId}" class="carousel slide property-detail-carousel" data-bs-ride="false">
+            <div class="carousel-inner">${carouselItems}</div>
+            ${carouselControls}
+          </div>
+          <div class="small text-muted mt-2">${fotos.length || 1} foto(s) disponible(s)</div>
+        </div>
+        <div class="col-lg-5">
+          <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+            <span class="badge text-bg-dark">${negocio}</span>
+            <span class="text-muted small">Cod. ${code}</span>
+          </div>
+          <h4 class="mb-1">${title}</h4>
+          <p class="text-muted mb-3"><i class="fa-solid fa-location-dot me-1"></i>${zone}</p>
+          <div class="detail-meta-grid mb-3">
+            <span><i class="fa-solid fa-house me-1"></i>${type}</span>
+            <span><i class="fa-solid fa-ruler-combined me-1"></i>${escapeHtml(areaText)}</span>
+            <span><i class="fa-solid fa-bed me-1"></i>${escapeHtml(habText)}</span>
+            <span><i class="fa-solid fa-bath me-1"></i>${escapeHtml(banosText)}</span>
+          </div>
+          <div class="h4 fw-bold mb-3" style="color: var(--brand);">${escapeHtml(priceText)}</div>
+          <h6 class="mb-1">Descripción</h6>
+          <p class="mb-0 text-muted">${descripcion}</p>
+        </div>
+      </div>
+    `;
+
+    modalDetalleInmuebleTitleEl && (modalDetalleInmuebleTitleEl.textContent = inmueble.titulo || 'Detalle de inmueble');
+    if (!modalDetalleInmuebleInstance){
+      modalDetalleInmuebleInstance = bootstrap.Modal.getOrCreateInstance(modalDetalleInmuebleEl);
+    }
+    modalDetalleInmuebleInstance.show();
+  }
+
+  async function loadInmueblesFromSupabase(){
+    if (!inmueblesListEl || !supabaseClient) return;
+
+    publicStatusEl && (publicStatusEl.textContent = 'Cargando inmuebles recientes...');
+    const { data, error } = await supabaseClient
+      .from('inmuebles')
+      .select(`
+        id,
+        codigo,
+        titulo,
+        tipo_negocio,
+        tipo_inmueble,
+        ciudad,
+        zona,
+        area_m2,
+        habitaciones,
+        banos,
+        precio,
+        descripcion,
+        created_at,
+        inmueble_fotos(url_publica, es_principal, created_at)
+      `)
+      .eq('activo', true)
+      .order('created_at', { ascending: false })
+      .limit(9);
+
+    if (error){
+      publicStatusEl && (publicStatusEl.textContent = 'No se pudo cargar desde la base de datos. Mostrando inmuebles de respaldo.');
+      if (!inmueblesListEl.innerHTML.trim()) inmueblesListEl.innerHTML = defaultInmueblesMarkup;
+      return;
+    }
+
+    if (!data?.length){
+      publicStatusEl && (publicStatusEl.textContent = 'Aún no hay inmuebles publicados en la base de datos.');
+      inmueblesListEl.innerHTML = defaultInmueblesMarkup;
+      return;
+    }
+
+    inmueblesCacheById.clear();
+    data.forEach((item) => inmueblesCacheById.set(item.id, item));
+    publicStatusEl && (publicStatusEl.textContent = `Mostrando ${data.length} inmueble(s) desde Supabase.`);
+    inmueblesListEl.innerHTML = data.map((inmueble) => {
+      const isRent = inmueble.tipo_negocio === 'arriendo';
+      const badgeLabel = isRent ? 'ARRIENDO' : 'VENTA';
+      const badgeClass = isRent ? 'rent' : 'sale';
+      const priceSuffix = isRent ? ' / mes' : '';
+      const zone = [inmueble.zona, inmueble.ciudad].filter(Boolean).join(', ') || 'Ubicación no registrada';
+      const areaText = inmueble.area_m2 ? `${Number(inmueble.area_m2)} m²` : 'N/D';
+      const habText = Number.isFinite(Number(inmueble.habitaciones)) ? `${inmueble.habitaciones} hab` : 'N/D';
+      const banosText = Number.isFinite(Number(inmueble.banos)) ? `${inmueble.banos} baños` : 'N/D';
+      const photoUrl = getPrimaryPhotoUrl(inmueble.inmueble_fotos);
+      const totalPhotos = normalizeFotos(inmueble.inmueble_fotos).length || 1;
+      const code = escapeHtml(inmueble.codigo || 'Sin código');
+      const title = escapeHtml(inmueble.titulo || 'Inmueble');
+
+      return `
+        <div class="col-md-6 col-lg-4">
+          <article class="property-card">
+            <img class="property-thumb" src="${escapeHtml(photoUrl)}" alt="${title}">
+            <div class="property-body">
+              <div class="property-head">
+                <span class="property-type ${badgeClass}">${badgeLabel}</span>
+                <span class="property-code">Cod. ${code}</span>
+              </div>
+              <h3 class="property-title">${title}</h3>
+              <p class="property-zone"><i class="fa-solid fa-location-dot me-1"></i>${escapeHtml(zone)}</p>
+              <div class="property-meta">
+                <span>${escapeHtml(areaText)}</span>
+                <span>${escapeHtml(habText)}</span>
+                <span>${escapeHtml(banosText)}</span>
+              </div>
+              <div class="property-price">${escapeHtml(formatCOP(inmueble.precio))}${priceSuffix}</div>
+              <div class="small text-muted mb-2">${totalPhotos} foto(s)</div>
+              <div class="property-actions">
+                <button type="button" class="btn-property btn-ghost js-ver-detalle-inmueble" data-inmueble-id="${escapeHtml(inmueble.id)}">
+                  Ver detalle completo
+                </button>
+                <a href="#contacto" class="btn-property">Solicitar Información</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      `;
+    }).join('');
+  }
+
+  inmueblesListEl?.addEventListener('click', (event) => {
+    const button = event.target.closest('.js-ver-detalle-inmueble');
+    if (!button) return;
+    const inmuebleId = button.getAttribute('data-inmueble-id');
+    if (!inmuebleId) return;
+    renderPropertyDetailModal(inmuebleId);
+  });
+
+  (function setupSupabaseForms(){
+    const modalEl = document.getElementById('modalFormularios');
+    if (!modalEl) return;
+
+    const statusEl = document.getElementById('forms-status-alert');
+    const formsListEl = document.getElementById('forms-list');
+    const authPanel = document.getElementById('forms-auth-panel');
+    const uploadPanel = document.getElementById('forms-upload-panel');
+    const loginForm = document.getElementById('forms-login-form');
+    const uploadForm = document.getElementById('forms-upload-form');
+    const logoutBtn = document.getElementById('forms-logout-btn');
+    const userEmailEl = document.getElementById('forms-user-email');
+    const fileNameInput = document.getElementById('forms-file-name');
+    const fileInput = document.getElementById('forms-file-input');
+
+    function setFormsStatus(message, level){
+      if (!statusEl) return;
+      statusEl.className = `alert alert-${level || 'info'} mb-0`;
+      statusEl.textContent = message;
+    }
+
+    function sanitizeFilePart(value){
+      return String(value || '')
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9_-]/g, '');
+    }
+
+    function extensionFromName(name){
+      const ext = String(name || '').split('.').pop();
+      return ext && ext !== name ? ext.toLowerCase() : 'pdf';
+    }
+
+    function prettyFormName(fileName){
+      const base = String(fileName || '')
+        .replace(/^\d+-/, '')
+        .replace(/\.[^.]+$/, '')
+        .replace(/[-_]+/g, ' ')
+        .trim();
+      return base ? base.replace(/\b([a-záéíóúñ])/g, (m) => m.toUpperCase()) : 'Formulario';
+    }
+
+    function formatFormDate(isoDate){
+      if (!isoDate) return '';
+      const d = new Date(isoDate);
+      if (Number.isNaN(d.getTime())) return '';
+      return d.toLocaleDateString('es-CO', { year:'numeric', month:'short', day:'2-digit' });
+    }
+
+    function setFormsAuthPanels(session){
+      const hasSession = Boolean(session?.user);
+      authPanel?.classList.toggle('d-none', hasSession);
+      uploadPanel?.classList.toggle('d-none', !hasSession);
+      userEmailEl && (userEmailEl.textContent = hasSession ? (session.user.email || 'usuario autenticado') : '');
+    }
+
+    async function refreshFormsSession(){
+      if (!supabaseClient){
+        setFormsStatus('No se pudo cargar Supabase.', 'danger');
+        return null;
+      }
+      const { data, error } = await supabaseClient.auth.getSession();
+      if (error){
+        setFormsStatus(`Error verificando sesión: ${error.message}`, 'danger');
+        return null;
+      }
+      setFormsAuthPanels(data.session);
+      return data.session;
+    }
+
+    async function loadFormsList(){
+      if (!supabaseClient || !formsListEl) return;
+      setFormsStatus('Cargando formularios...', 'info');
+      const { data, error } = await supabaseClient.storage
+        .from(SUPABASE_FORMS_BUCKET)
+        .list('formularios', { limit: 200, sortBy: { column: 'created_at', order: 'desc' } });
+
+      if (error){
+        setFormsStatus(`No se pudo leer el bucket "${SUPABASE_FORMS_BUCKET}": ${error.message}`, 'warning');
+        formsListEl.innerHTML = '<li class="list-group-item text-muted">Aún no hay formularios disponibles.</li>';
+        return;
+      }
+
+      const files = (Array.isArray(data) ? data : []).filter((item) => item?.name);
+      if (!files.length){
+        setFormsStatus('No hay formularios cargados todavía.', 'secondary');
+        formsListEl.innerHTML = '<li class="list-group-item text-muted">Aún no hay formularios disponibles.</li>';
+        return;
+      }
+
+      formsListEl.innerHTML = files.map((file) => {
+        const path = `formularios/${file.name}`;
+        const { data: urlData } = supabaseClient.storage.from(SUPABASE_FORMS_BUCKET).getPublicUrl(path);
+        const publicUrl = urlData?.publicUrl || '#';
+        const displayName = escapeHtml(prettyFormName(file.name));
+        const fileDate = formatFormDate(file.created_at);
+        const ext = escapeHtml(extensionFromName(file.name).toUpperCase());
+        return `
+          <li class="list-group-item d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <div>
+              <div class="fw-semibold">${displayName}</div>
+              <small class="text-muted">${ext}${fileDate ? ` · ${fileDate}` : ''}</small>
+            </div>
+            <a class="btn btn-sm btn-primary" href="${escapeHtml(publicUrl)}" target="_blank" rel="noopener" download>
+              <i class="fa-solid fa-download me-1"></i>Descargar
+            </a>
+          </li>
+        `;
+      }).join('');
+
+      setFormsStatus(`Se encontraron ${files.length} formulario(s).`, 'success');
+    }
+
+    modalEl.addEventListener('show.bs.modal', async () => {
+      await refreshFormsSession();
+      await loadFormsList();
+    });
+
+    loginForm?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!supabaseClient) return;
+      if (!loginForm.checkValidity()){
+        loginForm.classList.add('was-validated');
+        return;
+      }
+      setFormsStatus('Iniciando sesión...', 'info');
+      const email = document.getElementById('forms-email')?.value.trim() || '';
+      const password = document.getElementById('forms-password')?.value || '';
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error){
+        setFormsStatus(`No fue posible iniciar sesión: ${error.message}`, 'danger');
+        return;
+      }
+      loginForm.reset();
+      loginForm.classList.remove('was-validated');
+      await refreshFormsSession();
+      setFormsStatus('Sesión iniciada. Ya puedes subir formularios.', 'success');
+    });
+
+    logoutBtn?.addEventListener('click', async () => {
+      if (!supabaseClient) return;
+      const { error } = await supabaseClient.auth.signOut();
+      if (error){
+        setFormsStatus(`No fue posible cerrar sesión: ${error.message}`, 'danger');
+        return;
+      }
+      await refreshFormsSession();
+      setFormsStatus('Sesión cerrada.', 'secondary');
+    });
+
+    uploadForm?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!supabaseClient) return;
+      if (!uploadForm.checkValidity()){
+        uploadForm.classList.add('was-validated');
+        return;
+      }
+      const session = await refreshFormsSession();
+      if (!session?.user){
+        setFormsStatus('Debes iniciar sesión para subir formularios.', 'warning');
+        return;
+      }
+      const displayName = String(fileNameInput?.value || '').trim();
+      const file = fileInput?.files?.[0];
+      if (!displayName || !file){
+        setFormsStatus('Ingresa nombre y selecciona archivo.', 'warning');
+        return;
+      }
+
+      const cleanName = sanitizeFilePart(displayName) || 'formulario';
+      const ext = extensionFromName(file.name);
+      const path = `formularios/${Date.now()}-${cleanName}.${ext}`;
+
+      setFormsStatus('Subiendo formulario...', 'info');
+      const { error } = await supabaseClient.storage
+        .from(SUPABASE_FORMS_BUCKET)
+        .upload(path, file, { upsert: false, contentType: file.type || 'application/octet-stream' });
+
+      if (error){
+        setFormsStatus(`No se pudo subir el formulario: ${error.message}`, 'danger');
+        return;
+      }
+
+      setFormsStatus('Formulario subido correctamente.', 'success');
+      uploadForm.reset();
+      uploadForm.classList.remove('was-validated');
+      await loadFormsList();
+    });
+
+    supabaseClient?.auth.onAuthStateChange((_event, session) => {
+      setFormsAuthPanels(session);
+    });
+  })();
+
+  (function setupSupabaseUpload(){
+    const modalEl = document.getElementById('modalSubirFotosInmueble');
+    if (!modalEl) return;
+    const PROPERTY_FORM_HISTORY_KEY = 'zci_property_form_history_v1';
+
+    const statusEl = document.getElementById('supabase-upload-status');
+    const authPanel = document.getElementById('supabase-auth-panel');
+    const uploaderPanel = document.getElementById('supabase-uploader-panel');
+    const loginForm = document.getElementById('supabase-login-form');
+    const uploadForm = document.getElementById('supabase-upload-form');
+    const userEmailEl = document.getElementById('supabase-user-email');
+    const logoutBtn = document.getElementById('supabase-logout-btn');
+    const fillLastBtn = document.getElementById('supabase-fill-last-btn');
+    const suggestTitleBtn = document.getElementById('supabase-suggest-title-btn');
+    const typeInput = document.getElementById('supabase-property-type');
+    const cityInput = document.getElementById('supabase-property-city');
+    const zoneInput = document.getElementById('supabase-property-zone');
+    const titleInput = document.getElementById('supabase-property-title');
+    const businessInput = document.getElementById('supabase-property-business');
+    const areaInput = document.getElementById('supabase-property-area');
+    const bedroomsInput = document.getElementById('supabase-property-bedrooms');
+    const bathroomsInput = document.getElementById('supabase-property-bathrooms');
+    const priceInput = document.getElementById('supabase-property-price');
+    const descriptionInput = document.getElementById('supabase-property-description');
+    const pricePreview = document.getElementById('supabase-price-preview');
+    const codeInput = document.getElementById('supabase-property-code');
+    const codeHint = document.getElementById('supabase-code-hint');
+
+    function normalizeHistory(data){
+      const base = { types: [], cities: [], zones: [], titles: [], lastForm: null };
+      if (!data || typeof data !== 'object') return base;
+      return {
+        types: Array.isArray(data.types) ? data.types : [],
+        cities: Array.isArray(data.cities) ? data.cities : [],
+        zones: Array.isArray(data.zones) ? data.zones : [],
+        titles: Array.isArray(data.titles) ? data.titles : [],
+        lastForm: data.lastForm && typeof data.lastForm === 'object' ? data.lastForm : null
+      };
+    }
+
+    function getFormHistory(){
+      try{
+        return normalizeHistory(JSON.parse(localStorage.getItem(PROPERTY_FORM_HISTORY_KEY) || '{}'));
+      } catch (_err){
+        return normalizeHistory(null);
+      }
+    }
+
+    function saveFormHistory(history){
+      try{
+        localStorage.setItem(PROPERTY_FORM_HISTORY_KEY, JSON.stringify(normalizeHistory(history)));
+      } catch (_err){
+        // ignore localStorage errors
+      }
+    }
+
+    function appendUnique(items, value, max = 20){
+      const clean = String(value || '').trim();
+      if (!clean) return items;
+      const lower = clean.toLowerCase();
+      const without = (Array.isArray(items) ? items : []).filter((item) => String(item).trim().toLowerCase() !== lower);
+      return [clean, ...without].slice(0, max);
+    }
+
+    function syncDatalist(datalistId, values){
+      const datalist = document.getElementById(datalistId);
+      if (!datalist) return;
+      const existingValues = Array.from(datalist.querySelectorAll('option')).map((o) => o.value);
+      const merged = Array.from(new Set([...existingValues, ...(Array.isArray(values) ? values : [])])).filter(Boolean).slice(0, 30);
+      datalist.innerHTML = merged.map((value) => `<option value="${escapeHtml(value)}"></option>`).join('');
+    }
+
+    function capitalizeWords(text){
+      return String(text || '')
+        .toLowerCase()
+        .replace(/\b([a-záéíóúñ])/g, (m) => m.toUpperCase());
+    }
+
+    function buildSuggestedTitle(){
+      const tipo = capitalizeWords(typeInput?.value || '').trim();
+      const zona = capitalizeWords(zoneInput?.value || '').trim();
+      const ciudad = capitalizeWords(cityInput?.value || '').trim();
+      const negocio = businessInput?.value === 'arriendo' ? 'en Arriendo' : (businessInput?.value === 'venta' ? 'en Venta' : '');
+      const lugar = zona || ciudad;
+      if (tipo && lugar && negocio) return `${tipo} ${negocio} en ${lugar}`;
+      if (tipo && lugar) return `${tipo} en ${lugar}`;
+      if (tipo && negocio) return `${tipo} ${negocio}`;
+      return '';
+    }
+
+    function updatePricePreview(){
+      if (!pricePreview) return;
+      const value = Number(priceInput?.value || 0);
+      const formatted = Number.isFinite(value) && value > 0 ? formatCOP(value) : '$0';
+      pricePreview.textContent = `Formato: ${formatted}`;
+    }
+
+    function applyHistorySuggestions(){
+      const history = getFormHistory();
+      syncDatalist('property-type-suggestions', history.types);
+      syncDatalist('property-city-suggestions', history.cities);
+      syncDatalist('property-zone-suggestions', history.zones);
+    }
+
+    function extractNumericCode(code){
+      const digits = String(code || '').replace(/\D+/g, '');
+      return digits ? Number(digits) : null;
+    }
+
+    async function getNextConsecutiveCode(){
+      if (!supabaseClient) return null;
+      const { data, error } = await supabaseClient
+        .from('inmuebles')
+        .select('codigo')
+        .order('created_at', { ascending: false })
+        .limit(300);
+      if (error || !Array.isArray(data)) return null;
+      const maxFound = data.reduce((max, row) => {
+        const n = extractNumericCode(row?.codigo);
+        return Number.isFinite(n) && n > max ? n : max;
+      }, 0);
+      return String((maxFound || 0) + 1);
+    }
+
+    async function suggestNextConsecutiveCode(force = false){
+      if (!codeInput) return;
+      const hasManualValue = codeInput.value.trim().length > 0;
+      if (hasManualValue && !force) return;
+      const nextCode = await getNextConsecutiveCode();
+      if (!nextCode) return;
+      codeInput.value = nextCode;
+      codeHint && (codeHint.textContent = `Consecutivo sugerido: ${nextCode}`);
+    }
+
+    function fillFromLastForm(){
+      const history = getFormHistory();
+      const last = history.lastForm;
+      if (!last){
+        setStatus('Aún no hay datos previos para autollenar.', 'warning');
+        return;
+      }
+      titleInput && (titleInput.value = last.titulo || '');
+      businessInput && (businessInput.value = last.tipo_negocio || '');
+      typeInput && (typeInput.value = last.tipo_inmueble || '');
+      cityInput && (cityInput.value = last.ciudad || '');
+      zoneInput && (zoneInput.value = last.zona || '');
+      areaInput && (areaInput.value = last.area_m2 || '');
+      bedroomsInput && (bedroomsInput.value = last.habitaciones || '');
+      bathroomsInput && (bathroomsInput.value = last.banos || '');
+      priceInput && (priceInput.value = last.precio || '');
+      descriptionInput && (descriptionInput.value = last.descripcion || '');
+      updatePricePreview();
+      setStatus('Formulario autollenado con el último inmueble.', 'info');
+    }
+
+    fillLastBtn?.addEventListener('click', fillFromLastForm);
+    suggestTitleBtn?.addEventListener('click', () => {
+      const suggestion = buildSuggestedTitle();
+      if (!suggestion){
+        setStatus('Completa tipo, ciudad o zona para sugerir el título.', 'warning');
+        return;
+      }
+      if (titleInput) titleInput.value = suggestion;
+      setStatus('Título sugerido aplicado.', 'info');
+    });
+    [typeInput, cityInput, zoneInput, businessInput].forEach((input) => {
+      input?.addEventListener('input', () => {
+        if (!titleInput?.value.trim()) {
+          const suggestion = buildSuggestedTitle();
+          if (suggestion && titleInput) titleInput.placeholder = suggestion;
+        }
+      });
+    });
+    priceInput?.addEventListener('input', updatePricePreview);
+    codeInput?.addEventListener('focus', () => {
+      suggestNextConsecutiveCode(false);
+    });
+    applyHistorySuggestions();
+    updatePricePreview();
+
+    function setStatus(message, level){
+      if (!statusEl) return;
+      statusEl.className = `alert alert-${level || 'info'} mb-3`;
+      statusEl.textContent = message;
+    }
+
+    function sanitizePathPart(value){
+      return String(value || '')
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9_-]/g, '');
+    }
+
+    function setPanels(session){
+      const hasSession = Boolean(session?.user);
+      authPanel?.classList.toggle('d-none', hasSession);
+      uploaderPanel?.classList.toggle('d-none', !hasSession);
+
+      if (hasSession){
+        userEmailEl.textContent = session.user.email || 'usuario autenticado';
+        setStatus('Sesión activa. Ya puedes subir fotos del inmueble.', 'success');
+      } else {
+        userEmailEl.textContent = '';
+        setStatus('Para subir fotos debes iniciar sesión.', 'warning');
+      }
+    }
+
+    async function refreshSession(){
+      if (!supabaseClient){
+        setStatus('No se pudo cargar Supabase. Revisa la conexión del sitio.', 'danger');
+        return null;
+      }
+      const { data, error } = await supabaseClient.auth.getSession();
+      if (error){
+        setStatus(`Error verificando sesión: ${error.message}`, 'danger');
+        return null;
+      }
+      setPanels(data.session);
+      applyHistorySuggestions();
+      if (data.session?.user) await suggestNextConsecutiveCode(false);
+      return data.session;
+    }
+
+    modalEl.addEventListener('show.bs.modal', refreshSession);
+
+    loginForm?.addEventListener('submit', async (event)=>{
+      event.preventDefault();
+      if (!supabaseClient) return;
+      if (!loginForm.checkValidity()){
+        loginForm.classList.add('was-validated');
+        return;
+      }
+
+      setStatus('Iniciando sesión...', 'info');
+      const email = document.getElementById('supabase-email')?.value.trim() || '';
+      const password = document.getElementById('supabase-password')?.value || '';
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+      if (error){
+        setStatus(`No fue posible iniciar sesión: ${error.message}`, 'danger');
+        return;
+      }
+
+      loginForm.reset();
+      loginForm.classList.remove('was-validated');
+      await refreshSession();
+    });
+
+    logoutBtn?.addEventListener('click', async ()=>{
+      if (!supabaseClient) return;
+      const { error } = await supabaseClient.auth.signOut();
+      if (error){
+        setStatus(`No fue posible cerrar sesión: ${error.message}`, 'danger');
+        return;
+      }
+      await refreshSession();
+    });
+
+    uploadForm?.addEventListener('submit', async (event)=>{
+      event.preventDefault();
+      if (!supabaseClient) return;
+      if (!uploadForm.checkValidity()){
+        uploadForm.classList.add('was-validated');
+        return;
+      }
+
+      const session = await refreshSession();
+      if (!session?.user) return;
+
+      const propertyCodeRaw = document.getElementById('supabase-property-code')?.value || '';
+      const propertyCode = sanitizePathPart(propertyCodeRaw);
+      const propertyCodeLabel = String(propertyCodeRaw || '').trim().toUpperCase();
+      const propertyTitle = document.getElementById('supabase-property-title')?.value.trim() || '';
+      const propertyBusiness = document.getElementById('supabase-property-business')?.value || '';
+      const propertyType = document.getElementById('supabase-property-type')?.value.trim() || '';
+      const propertyCity = document.getElementById('supabase-property-city')?.value.trim() || '';
+      const propertyZone = document.getElementById('supabase-property-zone')?.value.trim() || null;
+      const propertyArea = document.getElementById('supabase-property-area')?.value;
+      const propertyBedrooms = document.getElementById('supabase-property-bedrooms')?.value;
+      const propertyBathrooms = document.getElementById('supabase-property-bathrooms')?.value;
+      const propertyPrice = document.getElementById('supabase-property-price')?.value;
+      const propertyDescription = document.getElementById('supabase-property-description')?.value.trim() || null;
+      const files = Array.from(document.getElementById('supabase-photo-files')?.files || []);
+      if (!propertyCode){
+        setStatus('Ingresa un código de inmueble válido.', 'warning');
+        return;
+      }
+      if (!propertyCodeLabel || !propertyTitle || !propertyBusiness || !propertyType || !propertyCity || !propertyPrice){
+        setStatus('Completa los datos obligatorios del inmueble.', 'warning');
+        return;
+      }
+      if (!files.length){
+        setStatus('Selecciona al menos una imagen para subir.', 'warning');
+        return;
+      }
+
+      setStatus('Guardando datos del inmueble...', 'info');
+      const { data: inmuebleRow, error: inmuebleError } = await supabaseClient
+        .from('inmuebles')
+        .insert({
+          codigo: propertyCodeLabel,
+          titulo: propertyTitle,
+          tipo_negocio: propertyBusiness,
+          tipo_inmueble: propertyType,
+          ciudad: propertyCity,
+          zona: propertyZone,
+          area_m2: propertyArea ? Number(propertyArea) : null,
+          habitaciones: propertyBedrooms ? Number(propertyBedrooms) : null,
+          banos: propertyBathrooms ? Number(propertyBathrooms) : null,
+          precio: Number(propertyPrice),
+          descripcion: propertyDescription,
+          created_by: session.user.id
+        })
+        .select('id, codigo')
+        .single();
+
+      if (inmuebleError){
+        if ((inmuebleError.message || '').toLowerCase().includes('duplicate key value')){
+          await suggestNextConsecutiveCode(true);
+          setStatus('El código ya existe. Asigné el siguiente consecutivo, revisa y vuelve a guardar.', 'warning');
+          return;
+        }
+        setStatus(`No se pudo guardar el inmueble: ${inmuebleError.message}`, 'danger');
+        return;
+      }
+
+      setStatus(`Subiendo ${files.length} archivo(s)...`, 'info');
+      const uploadedUrls = [];
+      const fotoRows = [];
+      const baseTimestamp = Date.now();
+
+      for (const [idx, file] of files.entries()){
+        const cleanFileName = sanitizePathPart(file.name.replace(/\.[^/.]+$/, '')) || 'foto';
+        const extension = (file.name.split('.').pop() || 'jpg').toLowerCase();
+        const path = `inmuebles/${propertyCode}/${session.user.id}/${baseTimestamp}-${idx + 1}-${cleanFileName}.${extension}`;
+
+        const { error } = await supabaseClient.storage
+          .from(SUPABASE_BUCKET)
+          .upload(path, file, { upsert: false, contentType: file.type || 'image/jpeg' });
+
+        if (error){
+          setStatus(`Error subiendo "${file.name}": ${error.message}`, 'danger');
+          return;
+        }
+
+        const { data } = supabaseClient.storage.from(SUPABASE_BUCKET).getPublicUrl(path);
+        if (data?.publicUrl){
+          uploadedUrls.push(data.publicUrl);
+          fotoRows.push({
+            inmueble_id: inmuebleRow.id,
+            storage_path: path,
+            url_publica: data.publicUrl,
+            es_principal: idx === 0,
+            created_by: session.user.id
+          });
+        }
+      }
+
+      if (fotoRows.length){
+        const { error: fotosError } = await supabaseClient.from('inmueble_fotos').insert(fotoRows);
+        if (fotosError){
+          setStatus(`Fotos subidas, pero no se pudieron registrar en la base de datos: ${fotosError.message}`, 'warning');
+          return;
+        }
+      }
+
+      setStatus(`Inmueble ${inmuebleRow.codigo} creado con ${uploadedUrls.length} imagen(es).`, 'success');
+      const history = getFormHistory();
+      history.types = appendUnique(history.types, propertyType);
+      history.cities = appendUnique(history.cities, propertyCity);
+      history.zones = appendUnique(history.zones, propertyZone);
+      history.titles = appendUnique(history.titles, propertyTitle);
+      history.lastForm = {
+        titulo: propertyTitle,
+        tipo_negocio: propertyBusiness,
+        tipo_inmueble: propertyType,
+        ciudad: propertyCity,
+        zona: propertyZone || '',
+        area_m2: propertyArea || '',
+        habitaciones: propertyBedrooms || '',
+        banos: propertyBathrooms || '',
+        precio: propertyPrice || '',
+        descripcion: propertyDescription || ''
+      };
+      saveFormHistory(history);
+      applyHistorySuggestions();
+      uploadForm.reset();
+      uploadForm.classList.remove('was-validated');
+      updatePricePreview();
+      await suggestNextConsecutiveCode(true);
+      await loadInmueblesFromSupabase();
+    });
+
+    supabaseClient?.auth.onAuthStateChange((_event, session) => setPanels(session));
+  })();
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadInmueblesFromSupabase();
+  });
+
+  // ========= Noticias: render siempre visible + actualización automática =========
+  (function setupNews(){
+    const list = document.getElementById('news-list');
+    const count = document.getElementById('news-count');
+    const search = document.getElementById('news-search');
+    const tagsWrap = document.getElementById('news-tags');
+    const lastUpdate = document.getElementById('news-last-update');
+    if (!list || !count) return;
+
+    let allItems = [...NEWS_FALLBACK_ITEMS];
+    let activeTag = null;
+
+    function fmtDate(iso){
+      if(!iso) return '';
+      const d = new Date(iso.includes('T') ? iso : `${iso}T00:00:00`);
+      return d.toLocaleDateString('es-CO',{year:'numeric',month:'short',day:'2-digit'});
+    }
+
+    function inferTags(title){
+      const t = (title || '').toLowerCase();
+      const tags = [];
+      if (/(arriendo|arrendamiento|canon)/.test(t)) tags.push('Arriendos');
+      if (/(venta|comprar|precio)/.test(t)) tags.push('Venta');
+      if (/(vivienda|casa|apartamento|inmueble)/.test(t)) tags.push('Vivienda');
+      if (/(medell[ií]n|antioquia)/.test(t)) tags.push('Medellín');
+      if (/(norma|ley|decreto|propiedad horizontal)/.test(t)) tags.push('Normatividad');
+      return tags.length ? tags : ['Mercado'];
+    }
+
+    function safeUrl(url){
+      try{
+        const u = new URL(url, window.location.origin);
+        return (u.protocol === 'http:' || u.protocol === 'https:') ? u.href : '#';
+      } catch (_err){
+        return '#';
+      }
+    }
+
+    async function fetchNewsFromRss(){
+      const proxy = 'https://api.allorigins.win/raw?url=';
+      const requests = NEWS_RSS_SOURCES.map(async (src) => {
+        try{
+          const response = await fetch(`${proxy}${encodeURIComponent(src.url)}`, { cache: 'no-store' });
+          if (!response.ok) return [];
+          const xmlText = await response.text();
+          const doc = new DOMParser().parseFromString(xmlText, 'text/xml');
+          const items = Array.from(doc.querySelectorAll('item')).slice(0, 8);
+          return items.map((item) => {
+            const title = item.querySelector('title')?.textContent?.trim() || '';
+            const link = item.querySelector('link')?.textContent?.trim() || '#';
+            const pubDateRaw = item.querySelector('pubDate')?.textContent?.trim() || '';
+            const sourceLabel = item.querySelector('source')?.textContent?.trim() || src.source;
+            const dt = pubDateRaw ? new Date(pubDateRaw) : null;
+            const dateIso = dt && !Number.isNaN(dt.getTime()) ? dt.toISOString().slice(0, 10) : '';
+            return { title, url: link, source: sourceLabel, date: dateIso, tags: inferTags(title) };
+          }).filter((n) => n.title && n.url && n.url !== '#');
+        } catch (_err){
+          return [];
+        }
+      });
+
+      const results = (await Promise.all(requests)).flat();
+      const unique = new Map();
+      results.forEach((item) => {
+        const key = `${item.url}|${item.title}`.toLowerCase();
+        if (!unique.has(key)) unique.set(key, item);
+      });
+      return Array.from(unique.values())
+        .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
+        .slice(0, 18);
+    }
+
+    function renderTags(items){
+      if(!tagsWrap) return;
+      const allTags = Array.from(new Set(items.flatMap(n => n.tags || []))).sort();
+      tagsWrap.innerHTML = '';
+      const any = document.createElement('button');
+      any.className = 'btn btn-sm btn-light rounded-pill';
+      any.textContent = 'Todas';
+      if(!activeTag) any.classList.add('active');
+      any.onclick = ()=>{ activeTag = null; apply(); };
+      tagsWrap.appendChild(any);
+
+      allTags.forEach((t) => {
+        const b = document.createElement('button');
+        b.className = 'btn btn-sm btn-light rounded-pill';
+        b.textContent = t;
+        if(activeTag===t) b.classList.add('active');
+        b.onclick = ()=>{ activeTag = (activeTag===t ? null : t); apply(); };
+        tagsWrap.appendChild(b);
+      });
+    }
+
+    function renderList(items){
+      list.innerHTML = '';
+      if(!items.length){
+        list.innerHTML = '<li class="list-group-item text-center text-muted">No hay resultados.</li>';
+        count.textContent = '0 noticias';
+        return;
+      }
+      items
+        .sort((a,b)=> (b.date||'').localeCompare(a.date||''))
+        .forEach((n)=>{
+          const url = safeUrl(n.url || '#');
+          const title = escapeHtml(n.title || 'Sin título');
+          const source = escapeHtml(n.source || 'Fuente');
+          const li = document.createElement('li');
+          li.className = 'list-group-item';
+          li.innerHTML = `
+            <a class="d-flex align-items-center gap-2 text-decoration-none" href="${url}" target="_blank" rel="noopener">
+              <i class="fa-regular fa-newspaper"></i>
+              <div class="flex-grow-1">
+                <div class="fw-semibold">${title}</div>
+                <div class="text-muted small">${source} · <time datetime="${n.date||''}">${fmtDate(n.date||'')}</time></div>
+                ${(n.tags||[]).map(t=>`<span class="badge bg-light text-dark me-1">${t}</span>`).join('')}
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>`;
+          list.appendChild(li);
+        });
+      count.textContent = `${items.length} noticias`;
+    }
+
+    function apply(){
+      const q = (search?.value || '').toLowerCase().trim();
+      const items = allItems.filter((n)=>{
+        const inText = [n.title,n.source,(n.tags||[]).join(' ')].join(' ').toLowerCase().includes(q);
+        const inTag = !activeTag || (n.tags||[]).includes(activeTag);
+        return inText && inTag;
+      });
+      renderTags(allItems);
+      renderList(items);
+    }
+
+    async function refreshNews(){
+      lastUpdate && (lastUpdate.textContent = 'Actualizando titulares...');
+      const remoteItems = await fetchNewsFromRss();
+      if (remoteItems.length){
+        allItems = remoteItems;
+        lastUpdate && (lastUpdate.textContent = `Actualizado: ${new Date().toLocaleString('es-CO')}`);
+      } else {
+        allItems = [...NEWS_FALLBACK_ITEMS];
+        lastUpdate && (lastUpdate.textContent = `Mostrando respaldo local (${new Date().toLocaleDateString('es-CO')})`);
+      }
+      apply();
+    }
+
+    search?.addEventListener('input', apply);
+    apply();
+    refreshNews();
+    setInterval(refreshNews, 30 * 60 * 1000);
+  })();
+
+  // ========= Navbar "active" por sección =========
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('.navbar .nav-link');
+    const ids = Array.from(links).map(a => a.getAttribute('href')).filter(h=>h && h.startsWith('#'));
+    const sections = ids.map(id => document.querySelector(id)).filter(Boolean);
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const id = '#' + entry.target.id;
+        const link = document.querySelector('.navbar .nav-link[href="'+id+'"]');
+        if (!link) return;
+        if (entry.isIntersecting) {
+          links.forEach(a => a.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(sec => obs.observe(sec));
+
+    // barra inferior fija: abrir formularios
+    document.getElementById('quick-open-formularios')?.addEventListener('click', () => {
+      const modalEl = document.getElementById('modalFormularios');
+      if (!modalEl) return;
+      const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+      modal.show();
+    });
+
+    // animaciones suaves por bloques
+    const revealTargets = document.querySelectorAll(
+      '.banner .container > *, .icon-card, #inmuebles .property-card, #inmuebles .service-item, #noticias .list-group-item, #nosotros .card, #contacto .card, .modal .card, footer .container > *'
+    );
+    revealTargets.forEach((el, idx) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = `${Math.min((idx % 6) * 70, 350)}ms`;
+    });
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealTargets.forEach((el) => revealObserver.observe(el));
+  });
+
+  // ========= Validación + envío a WhatsApp (Contacto y PQRSF) =========
+  (function formsWhatsApp(){
+    function show(el){ el?.classList.remove('d-none'); }
+    function hide(el){ el?.classList.add('d-none'); }
+
+    // Contacto
+    const f1 = document.getElementById('form-contacto');
+    const ok1 = document.getElementById('msg-ok');
+    const er1 = document.getElementById('msg-error');
+    f1?.addEventListener('submit', (e)=>{
+      e.preventDefault(); e.stopPropagation();
+      if (!f1.checkValidity()){ f1.classList.add('was-validated'); return; }
+      if (document.getElementById('website')?.value.trim()!=='') return;
+
+      const nombre = document.getElementById('nombre').value.trim();
+      const email  = document.getElementById('email').value.trim();
+      const tel    = document.getElementById('telefono').value.trim();
+      const msg    = document.getElementById('mensaje').value.trim();
+
+      const texto = `Contacto ZCI:\n- Nombre: ${nombre}\n- Correo: ${email}\n- Tel: ${tel}\n- Mensaje: ${msg}`;
+      const url = 'https://wa.me/573135715662?text=' + encodeURIComponent(texto);
+      window.open(url, '_blank', 'noopener');
+      hide(er1); show(ok1);
+      f1.reset(); f1.classList.remove('was-validated');
+    });
+
+    // PQRSF
+    const f2 = document.getElementById('form-pqr');
+    const ok2 = document.getElementById('pqr-ok');
+    const er2 = document.getElementById('pqr-error');
+    f2?.addEventListener('submit', (e)=>{
+      e.preventDefault(); e.stopPropagation();
+      if (!f2.checkValidity()){ f2.classList.add('was-validated'); return; }
+      if (document.getElementById('pqr-website')?.value.trim()!=='') return;
+
+      const tipo   = document.getElementById('pqr-tipo').value;
+      const nombre = document.getElementById('pqr-nombre').value.trim();
+      const doc    = document.getElementById('pqr-doc').value.trim();
+      const email  = document.getElementById('pqr-email').value.trim();
+      const tel    = document.getElementById('pqr-tel').value.trim();
+      const canal  = document.getElementById('pqr-canal').value;
+      const asunto = document.getElementById('pqr-asunto').value.trim();
+      const desc   = document.getElementById('pqr-desc').value.trim();
+
+      const texto = `PQRSF ZCI:
+- Tipo: ${tipo}
+- Nombre: ${nombre}
+- Doc: ${doc}
+- Correo: ${email}
+- Tel: ${tel}
+- Canal: ${canal}
+- Asunto: ${asunto}
+- Descripción: ${desc}`;
+      const url = 'https://wa.me/573135715662?text=' + encodeURIComponent(texto);
+      window.open(url, '_blank', 'noopener');
+      hide(er2); show(ok2);
+      f2.reset(); f2.classList.remove('was-validated');
+    });
+  })();
+
+  // ========= Footer: anio actual =========
+  (function setFooterYear(){
+    const yearEl = document.getElementById('footer-year');
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+  })();
+</script>
+
+</body>
+</html>
+<!-- ================== FIN PARTE 4 ================== -->
+
+
