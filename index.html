@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -92,6 +92,24 @@
     </section>
   </main>
 
+  <div class="modal fade" id="modalDetalleInmueble" tabindex="-1" aria-labelledby="modalDetalleInmuebleLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content border-0">
+        <div class="modal-header border-0">
+          <h5 class="modal-title" id="modalDetalleInmuebleLabel">Detalle de inmueble</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body pt-0"><div id="property-detail-content"></div></div>
+        <div class="modal-footer border-0">
+          <a id="property-detail-whatsapp-link" href="https://wa.me/573135715662" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-whatsapp me-1"></i>Solicitar información
+          </a>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="text-center py-4">
     <div class="container">
       <p class="mb-1">&copy; <span id="footer-year"></span> ZONA CENTRO INMOBILIARIA. Todos los derechos reservados.</p>
@@ -104,3 +122,4 @@
   <script src="main.js" defer></script>
 </body>
 </html>
+
